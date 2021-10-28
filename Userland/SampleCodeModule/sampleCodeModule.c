@@ -1,7 +1,37 @@
 /* sampleCodeModule.c */
-#include <shell.h>
+
+// #define PROMPT "$>\t"
+// #define MAX_BUFFER 1024
+
+// static char * buffer[MAX_BUFFER];
+// static int bufferIdx = 0;
+// static char token;
+
+// void shell_init();
+// void clear_buffer();
+// void interpret_line();
+
 int main() {
 	
-	shell_init();
-
+	return 0;
 }
+
+
+// void shell_init() {
+//     while(1) {
+//         while( (token = getchar()) != '\n') {
+//             buffer[bufferIdx++] = token;
+//         }
+//         interpret_line(buffer);
+//     }
+// }
+
+// void clear_buffer() {
+//     for(int i = 0; i <= bufferIdx; i++) buffer[i] = 0;
+//     bufferIdx = 0;
+// }
+
+// void interpret_line(const char * buffer) {
+//     // TODO
+//     clear_buffer();
+// }

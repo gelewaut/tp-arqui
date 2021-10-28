@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include "./include/lib.h"
 
 void * memset(void * destination, int32_t c, uint64_t length)
 {
@@ -62,7 +63,7 @@ void printf() {
 }
 
 void getChar() {
-
+	
 }
 
 void putChar() {
@@ -70,7 +71,7 @@ void putChar() {
 }
 
 int strcmp(const char * str1, const char * str2) {
-	if (strlen(str1) != strlen(str2)) {
+	if (strlenght(str1) != strlenght(str2)) {
 		return 0;
 	}
 
@@ -82,7 +83,7 @@ int strcmp(const char * str1, const char * str2) {
 	return 1;
 }
 
-int strlen(const char * str) {
+int strlenght(const char * str) {
 	int i = 0;
 	while(str[i]) i++;
 	return i;
