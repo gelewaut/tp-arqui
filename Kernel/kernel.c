@@ -3,6 +3,7 @@
 #include <lib.h>
 #include <moduleLoader.h>
 #include <naiveConsole.h>
+#include <clock.h>
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -100,5 +101,18 @@ int main()
 	ncNewline();
 
 	ncPrint("[Finished]");
+	ncNewline();
+
+	ncPrint("pruebas clock");
+	ncNewline();
+	ncPrint("hours: ");
+	ncPrintDec(getRTCHours());
+	ncNewline();
+	ncPrint("minutes: ");
+	ncPrintDec(getRTCMinutes());
+	ncNewline();
+	ncPrint("seconds: ");
+	ncPrintDec(getRTCSeconds());
+	ncNewline();
 	return 0;
 }
