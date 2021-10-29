@@ -11,5 +11,11 @@ void ncPrintHex(uint64_t value);
 void ncPrintBin(uint64_t value);
 void ncPrintBase(uint64_t value, uint32_t base);
 void ncClear();
+void ncPrintFormat(const char * string, char letterColor, char backroundColor);
+void ncPrintCharFormat(char character, char letterColor, char backroundColor);
+void updateScreen();
+void scrollUp();
+
+
 
 #endif

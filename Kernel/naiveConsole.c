@@ -6,7 +6,8 @@ static char buffer[64] = { '0' };
 static uint8_t * const video = (uint8_t*)0xB8000;
 static uint8_t * currentVideo = (uint8_t*)0xB8000;
 static const uint32_t width = 80;
-static const uint32_t height = 25 ;
+static const uint32_t height = 25;
+static uint8_t * videoEnd = (uint8_t *) (video + width * height * 2);
 
 void ncPrint(const char * string)
 {
@@ -92,4 +93,39 @@ static uint32_t uintToBase(uint64_t value, char * buffer, uint32_t base)
 	}
 
 	return digits;
+}
+
+void ncPrintCharFormat(char character, char letterColor, char backroundColor)
+{
+    *currentVideo = character;
+    currentVideo += 1;
+
+    *currentVideo = (16 * backroundColor) + letterColor;
+    currentVideo += 1;
+	updateScreen();
+}
+
+void ncPrintFormat(const char * string, char letterColor, char backroundColor)
+{
+    int i;
+
+    for (i = 0; string[i] != 0; i++)
+        ncPrintCharFormat(string[i], letterColor, backroundColor);
+}
+
+void updateScreen() {
+	if(currentVideo >= videoEnd) {
+		scrollUp();
+	}
+}
+
+void scrollUp() {
+	uint8_t * auxVideo = video + 160;
+        int i = 0;
+        while (i < (height-1) *2 *width)
+        {
+            video[i] = *auxVideo;
+            auxVideo++;
+            i++;
+        }
 }
