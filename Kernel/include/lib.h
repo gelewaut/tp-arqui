@@ -22,5 +22,7 @@ void getChar();
 
 void putChar();
 
+//ESTA FUNCION VA O NO?
+char getKey();
 
 #endif
