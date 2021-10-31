@@ -96,12 +96,24 @@ static uint32_t uintToBase(uint64_t value, char * buffer, uint32_t base)
 
 void ncPrintCharFormat(char character, char letterColor, char backroundColor)
 {
-    *currentVideo = character;
-    currentVideo += 1;
+	if (character == '\n'){ 
+		ncNewline();
+	} else if (character == '\t') {
+		for (int i=0; i<4; i++) 
+			ncPrintChar(' ');
+	} else if (character == 127) {//127 ascii del delete
+		if (currentVideo > video) {
+			*currentVideo = ' ';
+			currentVideo-=2;
+		}
+	} else {
+    	*currentVideo = character;
+    	currentVideo += 1;
 
-    *currentVideo = (16 * backroundColor) + letterColor;
-    currentVideo += 1;
-	updateScreen();
+    	*currentVideo = (16 * backroundColor) + letterColor;
+    	currentVideo += 1;
+		updateScreen();
+	}
 }
 
 void ncPrintFormat(const char * string, char letterColor, char backroundColor)
