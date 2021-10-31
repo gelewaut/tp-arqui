@@ -11,3 +11,7 @@ void exceptionDispatcher(int exception) {
 static void zero_division() {
 	// Handler para manejar excepcíon
 }
+
+static void invalid_OPCODE() {
+	// Handler para manejar excepcion
+}

@@ -7,7 +7,7 @@ static uint8_t * const video = (uint8_t*)0xB8000;
 static uint8_t * currentVideo = (uint8_t*)0xB8000;
 static const uint32_t width = 80;
 static const uint32_t height = 25;
-static uint8_t * videoEnd = (uint8_t *) (video + width * height * 2);
+// static uint8_t * videoEnd = (uint8_t *) (video + width * height * 2);
 
 void ncPrint(const char * string)
 {
@@ -19,8 +19,7 @@ void ncPrint(const char * string)
 
 void ncPrintChar(char character)
 {
-	*currentVideo = character;
-	currentVideo += 2;
+	ncPrintCharFormat(character, LIGHTGRAY, BLACK);
 }
 
 void ncNewline()
@@ -114,13 +113,13 @@ void ncPrintFormat(const char * string, char letterColor, char backroundColor)
 }
 
 void updateScreen() {
-	if(currentVideo >= videoEnd) {
+	if(currentVideo >= (video + width * height * 2)) { //videoEnd
 		scrollUp();
 	}
 }
 
 void scrollUp() {
-	uint8_t * auxVideo = video + 160;
+	uint8_t * auxVideo = video + (width*2);
         int i = 0;
         while (i < (height-1) *2 *width)
         {

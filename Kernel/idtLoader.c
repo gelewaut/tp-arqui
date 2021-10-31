@@ -33,13 +33,15 @@ void load_idt() {
   setup_IDT_entry(0x06, (uint64_t)&_exception6Handler);
 
 // Interruptions
-  setup_IDT_entry(0x20, (uint64_t)&_irq00Handler);
+  setup_IDT_entry(0x20, (uint64_t)&_irq00Handler); //Timer Tick
+  setup_IDT_entry(0x21, (uint64_t)&_irq01Handler); //Teclado
 
   setup_IDT_entry(0x80, (uint64_t)&_sysCall80Handler); 
 
 
-	//Solo interrupcion timer tick habilitadas
-	picMasterMask(0xFE); 
+	//0xFE Solo interrupcion timer tick habilitadas
+	//0xFC Timer tick y teclado habilitadas
+  picMasterMask(0xFC); 
 	picSlaveMask(0xFF);
         
 	_sti();
