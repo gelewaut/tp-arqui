@@ -41,7 +41,7 @@ int bufferIdx = 0;
 
 void clearBuffer();
 
-void keyboardHandler(){
+void keyboard_handler(){
     // HAY QUE DEFINIR _keyHandler()
     // idx = _keyHandler();
 

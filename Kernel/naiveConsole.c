@@ -131,12 +131,15 @@ void updateScreen() {
 }
 
 void scrollUp() {
-	uint8_t * auxVideo = video + (width*2);
-        int i = 0;
-        while (i < (height-1) *2 *width)
-        {
-            video[i] = *auxVideo;
-            auxVideo++;
-            i++;
-        }
+	int i = 0;
+	while (i < 24 * 80 * 2) {
+		video[i] = video[i+80 * 2];
+		i++;
+	}
+	while (i < 25 * 80 * 2) {
+		video[i] = ' ';
+		video[i+1] = 0x0F;
+		i += 2;
+	}
+	currentVideo = video + 24 * 80 * 2;
 }

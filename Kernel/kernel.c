@@ -105,16 +105,9 @@ int main()
 	ncPrint("[Finished]");
 	ncNewline();
 
-	ncPrint("pruebas clock");
-	ncNewline();
-	ncPrint("hours: ");
-	ncPrintDec(getRTCHours());
-	ncNewline();
-	ncPrint("minutes: ");
-	ncPrintDec(getRTCMinutes());
-	ncNewline();
-	ncPrint("seconds: ");
-	ncPrintDec(getRTCSeconds());
-	ncNewline();
-	return 0;
+	while(1) {
+		uint8_t key = getKey();
+        ncPrintChar(' ');
+        ncPrintBase(key, 8);
+	}
 }
