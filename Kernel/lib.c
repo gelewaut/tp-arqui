@@ -50,6 +50,18 @@ void * memcpy(void * destination, const void * source, uint64_t length)
 	return destination;
 }
 
+uint8_t port_byte_in(uint8_t port) {
+	uint8_t result;
+	__asm__("in %%dx, %%al" : "=a" (result) : "d" (port));
+	return result;
+}
+
+void port_byte_out(uint8_t port, uint8_t data) {
+    __asm__("out %%al, %%dx" : : "a" (data), "d" (port));
+}
+
+
+
 /*
 ** FUNCIONES STDLIB C
 */
