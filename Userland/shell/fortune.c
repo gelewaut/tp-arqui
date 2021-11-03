@@ -3,6 +3,7 @@
 #include <time.h>
 
 #include <hangman.h>
+#include <sudoku.h>
 
 #define ESC 0
 
@@ -14,7 +15,7 @@ void fortune_init() {
         if (isHangman(c)) {
             processHangman(c);
         } else if (isSudoku(c)) {
-            // processSudoku(c);
+            processSudoku(c);
         } else if (isChrono(c)) {
             // processChrono(c);
         }
