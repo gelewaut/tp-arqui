@@ -19,6 +19,11 @@ void ncPrint(const char * string)
 		ncPrintChar(string[i]);
 }
 
+void ncPrintln(const char * string) {
+	ncPrint(string);
+	ncNewline();
+}
+
 void ncPrintChar(char character)
 {
 	ncPrintCharFormat(character, LIGHTGRAY, BLACK);
