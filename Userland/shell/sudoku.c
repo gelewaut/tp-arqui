@@ -13,7 +13,7 @@ static uint8_t grill[9][9] =
     {2, 0, 0, 5, 1, 0, 0, 0, 7}
 };
 
-processSudoku(uint8_t key) {
+uint8_t processSudoku(uint8_t key) {
     if (isNumber(key)) {
 
     }
