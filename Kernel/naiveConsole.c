@@ -110,8 +110,8 @@ void ncPrintCharFormat(char character, char letterColor, char backroundColor)
 			ncPrintChar(' ');
 	} else if (character == 127) {//127 ascii del delete
 		if (currentVideo > video) {
-			*currentVideo = ' ';
 			currentVideo-=2;
+			*currentVideo = ' ';
 		}
 	} else {
     	*currentVideo = character;
