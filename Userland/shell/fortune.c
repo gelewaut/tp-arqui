@@ -37,18 +37,3 @@ uint8_t isHangman(uint8_t c) {
         return 1;
     return 0;
 }
-
-// uint8_t isChrono(uint8_t c) {
-
-// }
-
-// uint8_t isSudoku(uint8_t c) {
-//     if (c >= '0' && c <= '9') {
-//         return 1;
-//     return 0;
-// }
-
-// // Actualiza la pantalla con el estado actual de los juegos y el crono.
-// void updateFortune() {
-
-// }

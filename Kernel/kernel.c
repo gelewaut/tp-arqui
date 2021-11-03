@@ -108,14 +108,15 @@ int main()
 
 	// Fin de codigo de inicial
 
+	halt(3);
+
 	ncClear();
 
-	halt(5);
+	halt(1);
 
 	ncPrintln("finished halt");
 
 	
-
 	while(1) {
 		uint8_t key = getKey();
         ncPrintChar(' ');
