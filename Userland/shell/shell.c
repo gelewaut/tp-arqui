@@ -1,4 +1,7 @@
-#include "shell.h"
+#include <shell.h>
+#include <naiveConsole.h>
+#include <commands.h>
+
 #define PROMPT "$>\t"
 #define MAX_BUFFER 1024
 
@@ -8,15 +11,20 @@ static char token;
 
 void init_shell() {
     while(1) {
-        while( (token = getchar()) != '\n') {
+        while( (token = getChar()) != '\n') {
             buffer[bufferIdx++] = token;
+            putChar(token);
         }
         interpret_line(buffer);
     }
 }
 
 void interpret_line(const char * buffer) {
-    // TODO
+    if (isCommand(buffer)) {
+        runCommand(buffer);
+    } else {
+        ncPrintln("Comando no conocido. Consulte los comandos con 'help'");
+    }
     clear_buffer();
 }
 
