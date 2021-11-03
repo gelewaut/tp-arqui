@@ -112,7 +112,7 @@ int main()
 
 	halt(5);
 
-	ncPrint("finish halt");
+	ncPrintln("finished halt");
 
 	
 
