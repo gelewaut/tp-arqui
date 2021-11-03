@@ -3,6 +3,6 @@
 
 #include <time.h>
 
-void processHangman(char c);
+void processHangman();
 
 #endif
