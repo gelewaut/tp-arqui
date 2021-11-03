@@ -5,6 +5,7 @@
 #include <naiveConsole.h>
 #include <clock.h>
 #include <idtLoader.h>
+#include <time.h>
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -108,6 +109,12 @@ int main()
 	// Fin de codigo de inicial
 
 	ncClear();
+
+	halt(5);
+
+	ncPrint("finish halt");
+
+	
 
 	while(1) {
 		uint8_t key = getKey();
