@@ -105,6 +105,10 @@ int main()
 	ncPrint("[Finished]");
 	ncNewline();
 
+	// Fin de codigo de inicial
+
+	ncClear();
+
 	while(1) {
 		uint8_t key = getKey();
         ncPrintChar(' ');
