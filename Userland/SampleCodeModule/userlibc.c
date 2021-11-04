@@ -2,7 +2,7 @@
 #include <stdarg.h>
 #include <stdint.h>
 #include <syscalls.h>
-
+/*
 #define BUFFER_SIZE 32
 
 #define STDIN 0
@@ -126,3 +126,5 @@ uint8_t getMinutes() {
 uint8_t getSeconds() {
 	sys_clock(CLOCK_SECONDS);
 }
+
+*/

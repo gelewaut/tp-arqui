@@ -7,6 +7,8 @@ uint64_t sys_read(int fd, char * buf, uint64_t count);
 
 uint64_t sys_write(int fd, const char * buf, uint64_t count);
 
+uint64_t sys_writeAt(char character, int x, int y);
+
 uint64_t sys_clock(uint64_t code);
 
 #endif

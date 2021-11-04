@@ -150,3 +150,14 @@ void scrollUp() {
 	}
 	currentVideo = video + 24 * 80 * 2;
 }
+
+void PrintAt(char character, int x, int y) {
+	if (x>=0 && x<=width && y>=0 && y<= height) {
+		int position = (x*2) + (y*width);
+		video[position] = character;
+		video[position+1] = 0x07;
+	} else {
+		//error opcode
+	}
+
+}

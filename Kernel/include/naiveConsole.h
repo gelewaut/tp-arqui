@@ -16,6 +16,7 @@ void ncPrintFormat(const char * string, char letterColor, char backroundColor);
 void ncPrintCharFormat(char character, char letterColor, char backroundColor);
 void updateScreen();
 void scrollUp();
+void PrintAt(char character, int x, int y);
 
 #define BLACK 0
 #define BLUE 1
