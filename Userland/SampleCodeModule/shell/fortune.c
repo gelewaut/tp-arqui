@@ -3,6 +3,7 @@
 #include <time.h>
 
 #include <hangman.h>
+#include <clock.h>
 #include <sudoku.h>
 #include <syscalls.h>
 
@@ -31,6 +32,7 @@ void fortune_init()
         {
             // processChrono(c);
         }
+        processClock();
     }
 
     // Shutdown
@@ -52,13 +54,16 @@ Dibuja los bordes
  col 40 hasta row 24: |
  row 15 y 24: -
 */
-void print_limits() {
+void print_limits()
+{
     // cols
-    for (int i = 0; i < MAX_ROWS - 1; i++) {
+    for (int i = 0; i < MAX_ROWS - 1; i++)
+    {
         sys_writeAt('|', i, 40);
     }
 
-    for (int i = 0; i < MAX_COLS; i++) {
+    for (int i = 0; i < MAX_COLS; i++)
+    {
         sys_writeAt('-', 15, i);
         sys_writeAt('-', 24, i);
     }
