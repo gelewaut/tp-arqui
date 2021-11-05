@@ -8,6 +8,11 @@
 #define ARROW_LEFT 3
 #define ARROW_RIGHT 4
 
+#define MAX_ROWS 9
+#define MAX_COLS 9
+
+#define BUFFER_LENGHT 128
+
 uint8_t processSudoku(uint8_t c);
 
 // imprime estado del sudoku
@@ -24,7 +29,21 @@ uint8_t check_col(uint8_t num, uint8_t col);
 
 uint8_t check_square(uint8_t num, uint8_t row, uint8_t col);
 
-// Escribe en una casilla el numero indicado
-void write_at(uint8_t num, uint8_t row, uint8_t col);
+void clear_buffer();
+
+void print_sudoku();
+
+void print_grill();
+
+void print_num_buff();
+
+void print_info();
+
+uint8_t processSudoku(uint8_t key);
+
+uint8_t parseArrow(uint8_t key);
+
+uint8_t check_win();
+
 
 #endif

@@ -16,21 +16,21 @@ section .text
 ; %r15
 
 %macro pushAsm 0
-push rbp
-push rsp
-push rbx
-push r12
-push r13
-push r15
+    push rbp
+    push rsp
+    push rbx
+    push r12
+    push r13
+    push r15
 %endmacro
 
 %macro popAsm 0
-pop r15
-pop r13
-pop r12
-pop rbx
-pop rsp
-pop rbp
+    pop r15
+    pop r13
+    pop r12
+    pop rbx
+    pop rsp
+    pop rbp
 %endmacro
 
 sys_read:
