@@ -4,14 +4,18 @@
 
 #include <hangman.h>
 #include <sudoku.h>
+#include <syscalls.h>
 
 #define ESC 0
 
 void fortune_init()
 {
+    // Setup
     ncClear();
     print_welcome();
     print_limits();
+
+    // Loop
     char c;
     while ((c = getChar()) != ESC)
     {
@@ -27,8 +31,9 @@ void fortune_init()
         {
             // processChrono(c);
         }
-        // updateFortune();
     }
+
+    // Shutdown
 }
 
 void print_welcome()
@@ -40,6 +45,23 @@ void print_welcome()
     ncPrintln("Con los numeros juegue al sudoku");
     ncPrintln("Con las teclas 'BACKSPACE' y 'SHIFTR' interactue con el cronometro");
     halt(5);
+}
+
+/*
+Dibuja los bordes
+ col 40 hasta row 24: |
+ row 15 y 24: -
+*/
+void print_limits() {
+    // cols
+    for (int i = 0; i < MAX_ROWS - 1; i++) {
+        sys_writeAt('|', i, 40);
+    }
+
+    for (int i = 0; i < MAX_COLS; i++) {
+        sys_writeAt('-', 15, i);
+        sys_writeAt('-', 24, i);
+    }
 }
 
 uint8_t isHangman(uint8_t c)
