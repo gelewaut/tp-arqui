@@ -29,4 +29,21 @@ uint8_t check_col(uint8_t num, uint8_t col);
 
 uint8_t check_square(uint8_t num, uint8_t row, uint8_t col);
 
+void clear_buffer();
+
+void print_sudoku();
+
+void print_grill();
+
+void print_num_buff();
+
+void print_info();
+
+uint8_t processSudoku(uint8_t key);
+
+uint8_t parseArrow(uint8_t key);
+
+uint8_t check_win();
+
+
 #endif

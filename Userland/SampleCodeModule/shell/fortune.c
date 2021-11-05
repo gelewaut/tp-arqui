@@ -7,23 +7,32 @@
 
 #define ESC 0
 
-void fortune_init() {
+void fortune_init()
+{
     ncClear();
-    printWelcome();
+    print_welcome();
+    print_limits();
     char c;
-    while( (c = getChar()) != ESC ) {
-        if (isHangman(c)) {
+    while ((c = getChar()) != ESC)
+    {
+        if (isHangman(c))
+        {
             processHangman(c);
-        } else if (isSudoku(c)) {
+        }
+        else if (isSudoku(c))
+        {
             processSudoku(c);
-        } else if (isChrono(c)) {
+        }
+        else if (isChrono(c))
+        {
             // processChrono(c);
         }
         // updateFortune();
     }
 }
 
-void printWelcome() {
+void print_welcome()
+{
     ncPrintln("Bienvenido a fortune");
     ncPrintln("Si desea salir, presione ESC");
     ncPrintln("Bienvenido a fortune");
@@ -33,8 +42,16 @@ void printWelcome() {
     halt(5);
 }
 
-uint8_t isHangman(uint8_t c) {
+uint8_t isHangman(uint8_t c)
+{
     if (c >= 'a' && c <= 'z')
+        return 1;
+    return 0;
+}
+
+uint8_t isSudoku(uint8_t c)
+{
+    if ((c >= '1' && c <= '9') || (c == '\n') || isArrow(c))
         return 1;
     return 0;
 }
