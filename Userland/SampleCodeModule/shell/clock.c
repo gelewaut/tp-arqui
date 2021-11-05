@@ -23,7 +23,7 @@ const static uint8_t *clockPrompt = "CLOCK hh/mm/ss: ";
 */
 static char *hours, *minutes, *seconds;
 
-void processTime()
+void updateClock()
 {
     hours = numToStr(getHours(), 10);
     minutes = numToStr(getMinutes(), 10);

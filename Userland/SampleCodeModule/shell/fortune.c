@@ -17,8 +17,9 @@ void fortune_init()
 
     // Loop
     char c;
-    while ((c = getChar()) != ESC)
+    while (1)
     {
+        c = getChar();
         if (isHangman(c))
         {
             processHangman(c);
@@ -29,9 +30,14 @@ void fortune_init()
         }
         else if (isChrono(c))
         {
-            // processChrono(c);
+            processChrono(c);
         }
-        processClock();
+        else if (c == ESC)
+        {
+            break;
+        }
+        updateChrono();
+        updateClock();
     }
 
     // Shutdown
