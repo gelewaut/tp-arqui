@@ -10,9 +10,14 @@
 // void shell_init();
 // void clear_buffer();
 // void interpret_line();
+#include <syscalls.h>
 
 int main() {
-	
+	char c;
+	while (1) {
+		sys_read(0,&c,1);
+		sys_write(0,&c,1);
+	}
 	return 0;
 }
 

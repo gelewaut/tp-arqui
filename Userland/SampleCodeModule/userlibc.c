@@ -2,9 +2,13 @@
 #include <stdarg.h>
 #include <stdint.h>
 #include <syscalls.h>
+<<<<<<< HEAD:Userland/userlibc.c
 #include <stdio.h>
 #include <stdlib.h>
 
+=======
+/*
+>>>>>>> 1a61f0cdf6021641f0b0d0628da8fea49e0356bf:Userland/SampleCodeModule/userlibc.c
 #define BUFFER_SIZE 32
 
 #define STDIN 0
@@ -185,3 +189,5 @@ uint8_t getMinutes() {
 uint8_t getSeconds() {
 	sys_clock(CLOCK_SECONDS);
 }
+
+*/

@@ -1,6 +1,8 @@
 #ifndef _USERLIBC_H
 #define _USERLIBC_H
 
+#include <stdint.h>
+
 char * numToStr(unsigned long int num, int base);
 int strToNum(char* str);
 int string_compare(const char * s1, const char * s2) ;
