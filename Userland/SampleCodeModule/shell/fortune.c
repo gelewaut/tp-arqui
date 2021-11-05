@@ -1,7 +1,6 @@
 #include <fortune.h>
 #include <stdint.h>
-#include <time.h>
-
+#include <userlibc.h>
 #include <hangman.h>
 #include <clock.h>
 #include <sudoku.h>
@@ -12,7 +11,7 @@
 void fortune_init()
 {
     // Setup
-    ncClear();
+    clear();
     print_welcome();
     print_limits();
 
@@ -40,12 +39,12 @@ void fortune_init()
 
 void print_welcome()
 {
-    ncPrintln("Bienvenido a fortune");
-    ncPrintln("Si desea salir, presione ESC");
-    ncPrintln("Bienvenido a fortune");
-    ncPrintln("Con las letras juegue a nuestro hangman");
-    ncPrintln("Con los numeros juegue al sudoku");
-    ncPrintln("Con las teclas 'BACKSPACE' y 'SHIFTR' interactue con el cronometro");
+    printf("Bienvenido a fortune \n");
+    printf("Si desea salir, presione ESC \n");
+    printf("Bienvenido a fortune \n");
+    printf("Con las letras juegue a nuestro hangman \n");
+    printf("Con los numeros juegue al sudoku \n");
+    printf("Con las teclas 'BACKSPACE' y 'SHIFTR' interactue con el cronometro \n");
     halt(5);
 }
 

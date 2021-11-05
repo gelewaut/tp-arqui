@@ -6,7 +6,7 @@
 char * numToStr(unsigned long int num, int base);
 int strToNum(char* str);
 int string_compare(const char * s1, const char * s2) ;
-void scanf(char * string, ...);
+int scanf(char * string, ...);
 void printf(char* string, ...);
 uint8_t getChar() ;
 void putChar(uint8_t c) ;

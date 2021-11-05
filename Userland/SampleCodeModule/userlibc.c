@@ -174,16 +174,16 @@ void cleanBuffer(){
 }
 
 uint8_t getHours() {
-	sys_clock(CLOCK_HOURS);
+	return sys_clock(CLOCK_HOURS);
 }
 
 uint8_t getMinutes() {
-	sys_clock(CLOCK_MINUTES);
+	return sys_clock(CLOCK_MINUTES);
 
 }
 
 uint8_t getSeconds() {
-	sys_clock(CLOCK_SECONDS);
+	return sys_clock(CLOCK_SECONDS);
 }
 
 void clear(){
