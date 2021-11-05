@@ -1,5 +1,4 @@
 /* sampleCodeModule.c */
-
 // #define PROMPT "$>\t"
 // #define MAX_BUFFER 1024
 
@@ -11,13 +10,11 @@
 // void clear_buffer();
 // void interpret_line();
 #include <syscalls.h>
+#include <shell.h>
+
 
 int main() {
-	char c;
-	while (1) {
-		sys_read(0,&c,1);
-		sys_write(0,&c,1);
-	}
+	init_shell();
 	return 0;
 }
 

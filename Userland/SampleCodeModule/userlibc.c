@@ -2,13 +2,8 @@
 #include <stdarg.h>
 #include <stdint.h>
 #include <syscalls.h>
-<<<<<<< HEAD:Userland/userlibc.c
-#include <stdio.h>
 #include <stdlib.h>
 
-=======
-/*
->>>>>>> 1a61f0cdf6021641f0b0d0628da8fea49e0356bf:Userland/SampleCodeModule/userlibc.c
 #define BUFFER_SIZE 32
 
 #define STDIN 0
@@ -37,7 +32,8 @@ char * numToStr(unsigned long int num, int base){
         num/=base;
     }
 
-    return buffer+i+1;
+//aca antes estaba asi:     return buffer+i+1;
+    return *(buffer+i+1);
 }
 
 int strToNum(char* str){
@@ -63,7 +59,7 @@ int string_compare(const char * s1, const char * s2) {
 int scanf(char* str, ...){
     va_list vl;
     int i = 0, j=0, ret = 0;
-    char buff[100] = {0}, tmp[20], c;
+    char buff[100] = {0}, c; //tmp[20] no se usa
     char *out_loc;
     while(c) 
     {
@@ -190,4 +186,10 @@ uint8_t getSeconds() {
 	sys_clock(CLOCK_SECONDS);
 }
 
-*/
+void clear(){
+	for (int i = 0; i < 25; i++)
+	{
+		printf("\n");
+	}
+	
+}
