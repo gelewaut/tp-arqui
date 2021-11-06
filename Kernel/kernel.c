@@ -3,7 +3,6 @@
 #include <lib.h>
 #include <moduleLoader.h>
 #include <naiveConsole.h>
-#include <clock.h>
 #include <idtLoader.h>
 #include <time.h>
 

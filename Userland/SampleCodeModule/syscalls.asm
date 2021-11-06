@@ -2,6 +2,9 @@ GLOBAL sys_read
 GLOBAL sys_write
 GLOBAL sys_writeAt
 GLOBAL sys_clock
+GLOBAL sys_timerTick:
+GLOBAL sys_infoReg:
+GLOBAL sys_printMem
 
 section .text
     
@@ -47,7 +50,31 @@ sys_write:
     ret
 sys_writeAt:
     pushAsm
-    mov rax, 2
-    INT 80h
+    INT 81h
+    popAsm
+    ret
+sys_clock:
+    pushAsm
+    mov rax, 0
+    mov rax, rdi
+    INT 82h
+    popASM
+    ret
+
+sys_timerTick:
+    pushAsm
+    INT 83h
+    popAsm
+    ret
+
+sys_infoReg:
+    pushAsm
+    INT 84h
+    popAsm
+    ret
+
+sys_printMem:
+    pushAsm
+    INT 85h
     popAsm
     ret

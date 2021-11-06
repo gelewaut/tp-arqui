@@ -18,10 +18,19 @@ GLOBAL _sysCall80Handler
 GLOBAL _exception0Handler
 GLOBAL _exception6Handler
 
+GLOBAL _writeAtHandler
+GLOBAL _clockHandler
+GLOBAL _timerTickHandler
+GLOBAL _infoRegHandler
+GLOBAL _printMemHandler
 
 EXTERN irqDispatcher
 EXTERN exceptionDispatcher
 EXTERN sysCallDispatcher
+EXTERN sys_writeAT
+EXTERN ticks_elapsed
+EXTERN infoReg
+EXTERN memDump
 
 SECTION .text
 
@@ -109,8 +118,6 @@ SECTION .text
 	iretq
 %endmacro
 
-
-
 %macro exceptionHandler 1
 	pushState
 
@@ -154,6 +161,10 @@ _sti:
 	sti
 	ret
 
+haltcpu:
+	cli
+	hlt
+	ret
 picMasterMask:
 	push rbp
     mov rbp, rsp
@@ -166,7 +177,7 @@ picSlaveMask:
 	push    rbp
     mov     rbp, rsp
     mov     ax, di  ; ax = mascara de 16 bits
-    out	0A1h,al
+    out		0A1h,al
     pop     rbp
     retn
 
@@ -206,12 +217,34 @@ _exception0Handler:
 _exception6Handler:
 	exceptionHandler 6
 
-haltcpu:
-	cli
-	hlt
-	ret
 
+_writeAtHandler:
+	pushStateSysCall
+	call sys_writeAT
+	popStateSysCall
+	iretq
 
-
+;pasaje de parametro via rax -> al
+_clockHandler:
+	pushStateSysCall
+	out 70h, al
+	in ax, 71h
+	popStateSysCall
+	iretq
+_timerTickHandler:
+	pushStateSysCall
+	call ticks_elapsed
+	popStateSysCall
+	iretq
+_infoRegHandler:
+	pushStateSysCall
+	call infoReg
+	popStateSysCall
+	iretq
+_printMemHandler:
+	pushStateSysCall
+	call memDump
+	popStateSysCall
+	iretq
 SECTION .bss
 	aux resq 1
