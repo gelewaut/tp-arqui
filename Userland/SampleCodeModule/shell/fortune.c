@@ -3,6 +3,7 @@
 #include <userlibc.h>
 #include <hangman.h>
 #include <clock.h>
+#include <chrono.h>
 #include <sudoku.h>
 #include <syscalls.h>
 
@@ -41,6 +42,7 @@ void fortune_init()
     }
 
     // Shutdown
+    return 1;
 }
 
 void print_welcome()
@@ -85,5 +87,14 @@ uint8_t isSudoku(uint8_t c)
 {
     if ((c >= '1' && c <= '9') || (c == '\n') || isArrow(c))
         return 1;
+    return 0;
+}
+
+uint8_t isChrono(uint8_t c)
+{
+    if (c == ',' || c == '.')
+    {
+        return 1;
+    }
     return 0;
 }

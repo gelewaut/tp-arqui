@@ -35,4 +35,14 @@ void stop();
 
 void print_chrono();
 
+void processChrono(uint8_t key);
+void updateChrono();
+uint8_t hours_elapsed();
+uint8_t minutes_elapsed();
+uint8_t seconds_elapsed();
+uint8_t decimals_elapsed();
+uint64_t ticks_elapsed();
+uint8_t getX();
+uint8_t getY(uint8_t i);
+
 #endif
