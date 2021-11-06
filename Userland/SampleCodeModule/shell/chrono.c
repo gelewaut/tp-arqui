@@ -38,17 +38,17 @@ void print_chrono()
     decimals = numToStr(decimals_elapsed(), 10);
 
     uint8_t i = 0;
-    sys_writeAt(hours[0], getX(), getY(i++));
-    sys_writeAt(hours[1], getX(), getY(i++));
-    sys_writeAt(':', getX(), getY(i++));
-    sys_writeAt(minutes[0], getX(), getY(i++));
-    sys_writeAt(minutes[1], getX(), getY(i++));
-    sys_writeAt(':', getX(), getY(i++));
-    sys_writeAt(seconds[0], getX(), getY(i++));
-    sys_writeAt(seconds[1], getX(), getY(i++));
-    sys_writeAt(':', getX(), getY(i++));
-    sys_writeAt(decimals[0], getX(), getY(i++));
-    sys_writeAt(decimals[1], getX(), getY(i++));
+    sys_writeAt(hours[0],1, getX(), getY(i++));
+    sys_writeAt(hours[1],1, getX(), getY(i++));
+    sys_writeAt(':',1, getX(), getY(i++));
+    sys_writeAt(minutes[0],1, getX(), getY(i++));
+    sys_writeAt(minutes[1],1, getX(), getY(i++));
+    sys_writeAt(':',1, getX(), getY(i++));
+    sys_writeAt(seconds[0],1, getX(), getY(i++));
+    sys_writeAt(seconds[1],1, getX(), getY(i++));
+    sys_writeAt(':',1, getX(), getY(i++));
+    sys_writeAt(decimals[0],1, getX(), getY(i++));
+    sys_writeAt(decimals[1],1, getX(), getY(i++));
 }
 
 uint8_t hours_elapsed()

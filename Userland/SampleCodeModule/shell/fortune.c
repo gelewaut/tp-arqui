@@ -66,13 +66,13 @@ void print_limits()
     // cols
     for (int i = 0; i < MAX_ROWS - 1; i++)
     {
-        sys_writeAt('|', i, 40);
+        sys_writeAt('|',1, i, 40);
     }
 
     for (int i = 0; i < MAX_COLS; i++)
     {
-        sys_writeAt('-', 15, i);
-        sys_writeAt('-', 24, i);
+        sys_writeAt('-',1, 15, i);
+        sys_writeAt('-',1, 24, i);
     }
 }
 

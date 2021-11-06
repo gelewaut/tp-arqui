@@ -176,14 +176,14 @@ void print_grill() {
             } else {
                 token = BLANK_TOKEN;
             }
-            sys_writeAt(token,
+            sys_writeAt(token,1,
                 SUDOKU_SCREEN_START_X + offset_x + i,
                 SUDOKU_SCREEN_START_Y + offset_y + j);
         }
     }
 
     // Prints the cursor
-    sys_writeAt('*', offset_x + cursor_x, offset_y + cursor_y);
+    sys_writeAt('*',1, offset_x + cursor_x, offset_y + cursor_y);
 }
 
 void print_num_buff() {
@@ -191,9 +191,9 @@ void print_num_buff() {
     uint8_t offset_y = 5;
     int i;
     for (i = 0; num_buff_prompt[i]; i++) {
-        sys_writeAt(num_buff_prompt[i], SUDOKU_SCREEN_START_X + offset_x + i, SUDOKU_SCREEN_START_Y + offset_y);
+        sys_writeAt(num_buff_prompt[i],1, SUDOKU_SCREEN_START_X + offset_x + i, SUDOKU_SCREEN_START_Y + offset_y);
     }
-    sys_writeAt(numToStr(*num_buffer, 10), SUDOKU_SCREEN_START_X + offset_x + i, SUDOKU_SCREEN_START_Y + offset_y);
+    sys_writeAt(numToStr(*num_buffer, 10),1, SUDOKU_SCREEN_START_X + offset_x + i, SUDOKU_SCREEN_START_Y + offset_y);
 }
 
 
@@ -201,7 +201,7 @@ void print_num_buff() {
 void print_info() {
     int info_offset_x = 12;
     for (int i = 0; i < info_idx; i++) {
-        sys_writeAt(info_buffer[i], SUDOKU_SCREEN_START_X + info_offset_x, SUDOKU_SCREEN_START_Y + i);
+        sys_writeAt(info_buffer[i],1, SUDOKU_SCREEN_START_X + info_offset_x, SUDOKU_SCREEN_START_Y + i);
     }
     clear_buffer();
 }

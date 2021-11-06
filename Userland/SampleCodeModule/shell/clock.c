@@ -37,16 +37,16 @@ void print_clock()
 
     for (i; clockPrompt[i]; i++)
     {
-        sys_writeAt(clockPrompt[i], getX(), getY(i));
+        sys_writeAt(clockPrompt[i],1, getX(), getY(i));
     }
-    sys_writeAt(hours[0], getX(), getY(i++));
-    sys_writeAt(hours[1], getX(), getY(i++));
-    sys_writeAt(':', getX(), getY(i++));
-    sys_writeAt(minutes[0], getX(), getY(i++));
-    sys_writeAt(minutes[1], getX(), getY(i++));
-    sys_writeAt(':', getX(), getY(i++));
-    sys_writeAt(seconds[0], getX(), getY(i++));
-    sys_writeAt(seconds[1], getX(), getY(i++));
+    sys_writeAt(hours[0],1, getX(), getY(i++));
+    sys_writeAt(hours[1],1, getX(), getY(i++));
+    sys_writeAt(':',1, getX(), getY(i++));
+    sys_writeAt(minutes[0],1, getX(), getY(i++));
+    sys_writeAt(minutes[1],1, getX(), getY(i++));
+    sys_writeAt(':', getX(),1, getY(i++));
+    sys_writeAt(seconds[0],1, getX(), getY(i++));
+    sys_writeAt(seconds[1],1, getX(), getY(i++));
 }
 
 uint8_t getX()
