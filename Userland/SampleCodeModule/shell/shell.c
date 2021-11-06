@@ -1,7 +1,6 @@
 #include <shell.h>
 #include <userlibc.h>
 
-
 #include <fortune.h>
 #include <shell.h>
 
