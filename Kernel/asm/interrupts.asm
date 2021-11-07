@@ -23,6 +23,7 @@ GLOBAL _clockHandler
 GLOBAL _timerTickHandler
 GLOBAL _infoRegHandler
 GLOBAL _printMemHandler
+GLOBAL _clearScreenHandler
 
 EXTERN irqDispatcher
 EXTERN exceptionDispatcher
@@ -31,6 +32,7 @@ EXTERN sys_writeAT
 EXTERN ticks_elapsed
 EXTERN infoReg
 EXTERN memDump
+EXTERN ncClear
 
 SECTION .text
 
@@ -244,6 +246,11 @@ _infoRegHandler:
 _printMemHandler:
 	pushStateSysCall
 	call memDump
+	popStateSysCall
+	iretq
+_clearScreenHandler:
+	pushStateSysCall
+	call ncClear
 	popStateSysCall
 	iretq
 SECTION .bss

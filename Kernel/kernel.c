@@ -105,20 +105,21 @@ int main()
 	ncPrint("[Finished]");
 	ncNewline();
 
+	return 0;
 	// Fin de codigo de inicial
 
-	halt(3);
+	// halt(3);
 
-	ncClear();
+	// ncClear();
 
-	halt(1);
+	// halt(1);
 
-	ncPrintln("finished halt");
+	// ncPrintln("finished halt");
 
 	
-	while(1) {
-		uint8_t key = getKey();
-        ncPrintChar(' ');
-        ncPrintBase(key, 8);
-	}
+	// while(1) {
+	// 	uint8_t key = getKey();
+    //     ncPrintChar(' ');
+    //     ncPrintBase(key, 8);
+	// }
 }

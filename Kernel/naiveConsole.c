@@ -151,13 +151,24 @@ void scrollUp() {
 	currentVideo = video + 24 * 80 * 2;
 }
 
-void PrintAt(char character, int x, int y) {
-	if (x>=0 && x<=width && y>=0 && y<= height) {
-		int position = (x*2) + (y*width);
+uint64_t PrintAt(char * character, uint64_t bytes, int x, int y) {
+	// while (x>=0 && x<=width && y>=0 && y<= height) {
+	// 	int position = (x*2) + (y*width);
+	// 	video[position] = character;
+	// 	video[position+1] = 0x07;
+	// } else {
+	// 	//error opcode
+	// }
+	int position;
+	int i;
+	for (i=0; i<bytes && y<=height; i++) {
+		if (x>=width) {
+			x=0;
+			y++;
+		}
+		position = (x*2) + (y*width);
 		video[position] = character;
 		video[position+1] = 0x07;
-	} else {
-		//error opcode
 	}
-
+	return i;
 }

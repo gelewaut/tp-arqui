@@ -11,10 +11,17 @@
 // void interpret_line();
 #include <syscalls.h>
 #include <shell.h>
-
+#include <userlibc.h>
 
 int main() {
+	clear();
 	init_shell();
+	// char c;
+	// while (1) {
+	// 	sys_read(0, &c, 1);
+	// 	sys_write(0, &c, 1);
+	// }
+
 	return 0;
 }
 

@@ -39,6 +39,7 @@ void load_idt() {
   setup_IDT_entry(0x83, (uint64_t)&_timerTickHandler);
   setup_IDT_entry(0x84, (uint64_t)&_infoRegHandler);
   setup_IDT_entry(0x85, (uint64_t)&_printMemHandler);
+  setup_IDT_entry(0x86, (uint64_t)&_clearScreenHandler);
 
 
 	//0xFE Solo interrupcion timer tick habilitadas

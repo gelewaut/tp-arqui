@@ -35,5 +35,6 @@ void _clockHandler(void);
 void _timerTickHandler(void);
 void _infoRegHandler(void);
 void _printMemHandler(void);
+void _clearScreenHandler(void);
 
 #endif /* INTERRUPS_H_ */

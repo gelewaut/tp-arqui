@@ -10,6 +10,7 @@ void printf(char *string, ...);
 int scanf(char *string, ...);
 char getChar();
 void putChar(char c);
+void printCharAt (char c, int x, int y);
 void printDec(int num);
 void printHex(int num);
 void cleanBuffer();

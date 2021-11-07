@@ -65,13 +65,13 @@ void print_limits()
     // cols
     for (int i = 0; i < MAX_ROWS - 1; i++)
     {
-        sys_writeAt("|", 1, i, 40);
+        printCharAt('|', i, 40);
     }
 
     for (int i = 0; i < MAX_COLS; i++)
     {
-        sys_writeAt("-", 1, 15, i);
-        sys_writeAt("-", 1, 24, i);
+        printCharAt('-', 15, i);
+        printCharAt('-', 24, i);
     }
 }
 
@@ -89,11 +89,11 @@ uint8_t isSudoku(uint8_t c)
     return 0;
 }
 
-uint8_t isChrono(uint8_t c)
-{
-    if (c == ',' || c == '.')
-    {
-        return 1;
-    }
-    return 0;
-}
+// uint8_t isChrono(uint8_t c)
+// {
+//     if (c == ',' || c == '.')
+//     {
+//         return 1;
+//     }
+//     return 0;
+// }

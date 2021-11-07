@@ -2,9 +2,10 @@ GLOBAL sys_read
 GLOBAL sys_write
 GLOBAL sys_writeAt
 GLOBAL sys_clock
-GLOBAL sys_timerTick:
-GLOBAL sys_infoReg:
+GLOBAL sys_timerTick
+GLOBAL sys_infoReg
 GLOBAL sys_printMem
+GLOBAL sys_clearScreen
 
 section .text
     
@@ -76,5 +77,10 @@ sys_infoReg:
 sys_printMem:
     pushAsm
     INT 85h
+    popAsm
+    ret
+sys_clearScreen:
+    pushAsm
+    INT 86h
     popAsm
     ret

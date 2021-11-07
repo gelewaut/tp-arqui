@@ -1,6 +1,7 @@
 #include <shell.h>
 #include <userlibc.h>
-
+#include <stdint.h>
+#include <syscalls.h>
 #include <fortune.h>
 #include <shell.h>
 
@@ -9,7 +10,7 @@
 #define MAX_COMMAND_LENGHT 5
 #define MAX_ARGS 3
 #define MAX_ARG_LENGHT 5
-#define NUMBER_OF_COMMANDS 2
+#define NUMBER_OF_COMMANDS 5
 
 #define BACKSPACE 127
 #define ENTER '\n'
@@ -17,17 +18,17 @@
 #define EXIT_SUCCESS 1
 #define EXIT_FAILURE 0
 
-static char *shell_buffer[MAX_BUFFER] = {0};
-static char *command_buffer[MAX_COMMAND_LENGHT] = {0};
-static char **args[MAX_ARGS][MAX_ARG_LENGHT];
+static char shell_buffer[MAX_BUFFER] = {0};
+static char command_buffer[MAX_COMMAND_LENGHT] = {0};
+static char args[MAX_ARGS][MAX_ARG_LENGHT];
 static int bufferIdx = 0;
 
 static char *valid_commands[NUMBER_OF_COMMANDS] = {
     "help",    // 0
-    "fortune"  // 1
-    "time"     // 2
-    "inforeg"  // 3
-    "printmem" // 4
+    "fortune",  // 1
+    "time",     // 2
+    "inforeg",  // 3
+    "printmem", // 4
 };
 
 static uint8_t args_for_command[NUMBER_OF_COMMANDS] = {
@@ -40,7 +41,7 @@ static uint8_t args_for_command[NUMBER_OF_COMMANDS] = {
 void init_shell()
 {
     // setup
-    ncClear();
+    clear();
     shell_welcome();
 
     //loop
@@ -51,7 +52,7 @@ void init_shell()
 
 void shell_welcome()
 {
-    ncPrintln("WELCOME TO SHELL");
+    printf("WELCOME TO SHELL\n");
 }
 
 void shell_loop()
@@ -60,7 +61,7 @@ void shell_loop()
 
     do
     {
-        ncPrint(PROMPT);
+        printf(PROMPT);
         shell_read_line();
         shell_parse_line();
         mustContinue = shell_execute();
@@ -77,7 +78,7 @@ void shell_read_line()
     {
         if (c == BACKSPACE)
         {
-            shell_buffer[bufferIdx--] = 0;
+            shell_buffer[--bufferIdx] = 0;
         }
         else
         {
@@ -124,15 +125,15 @@ uint8_t shell_execute()
     }
     else
     {
-        ncPrintln("Unknown command.");
+        printf("\nUnknown command");
     }
 
     cleanup();
-    ncNewline();
+    putChar('\n');
     return result;
 }
 
-int8_t isCommand(const char *command)
+uint8_t isCommand(const char * command)
 {
     for (int i = 0; i < NUMBER_OF_COMMANDS; i++)
     {
@@ -171,15 +172,18 @@ uint8_t runCommand(uint8_t cmd)
         return printmemCommand();
     }
     }
+    return -1;
 }
 
 uint8_t helpCommand()
 {
-    ncPrintln("These are the available commands");
+    printf("\nThese are the available commands");
     for (int i = 0; i < NUMBER_OF_COMMANDS; i++)
     {
-        ncPrintln(valid_commands[i]);
+        putChar('\n');
+        printf(valid_commands[i]);
     }
+    putChar('\n');
     return EXIT_SUCCESS;
 }
 
@@ -196,9 +200,21 @@ uint8_t timeCommand()
     return EXIT_SUCCESS;
 }
 
-int8_t fortuneCommand()
+uint8_t fortuneCommand()
 {
     fortune_init();
+    return EXIT_SUCCESS;
+}
+
+uint8_t inforegCommand(){
+    putChar('\n');
+    sys_infoReg();
+    putChar('\n');
+    return EXIT_SUCCESS;
+}
+uint8_t printmemCommand(){
+    sys_printMem(0x000000);
+    return EXIT_SUCCESS;
 }
 
 void cleanup()

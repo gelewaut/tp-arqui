@@ -28,5 +28,6 @@ uint64_t sys_clock(uint64_t code);
 uint64_t sys_timerTick(void);
 void sys_infoReg(void);
 void sys_printMem(uint64_t * direction);
+void sys_clearScreen(void);
 
 #endif
