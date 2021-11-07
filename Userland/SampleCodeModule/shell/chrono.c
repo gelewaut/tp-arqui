@@ -2,12 +2,20 @@
 #include <userlibc.h>
 #include <syscalls.h>
 
-static uint64_t start, current;
+static uint64_t start;
 
 static uint8_t active = 0;
 static uint8_t paused = 0;
 
 static char *hours, *minutes, *seconds, *decimals;
+static uint64_t hlen, mlen, slen, dlen;
+
+uint8_t isChrono(uint8_t key)
+{
+    if (key == START_KEY || key == PAUSE_KEY)
+        return 1;
+    return 0;
+}
 
 void processChrono(uint8_t key)
 {
@@ -32,23 +40,23 @@ void updateChrono()
 
 void print_chrono()
 {
-    hours = numToStr(hours_elapsed(), 10);
-    minutes = numToStr(minutes_elapsed(), 10);
-    seconds = numToStr(seconds_elapsed(), 10);
-    decimals = numToStr(decimals_elapsed(), 10);
+    hlen = numToStr(hours, hours_elapsed(), 10);
+    mlen = numToStr(minutes, minutes_elapsed(), 10);
+    slen = numToStr(seconds, seconds_elapsed(), 10);
+    dlen = numToStr(decimals, decimals_elapsed(), 10);
 
     uint8_t i = 0;
-    sys_writeAt(hours[0],1, getX(), getY(i++));
-    sys_writeAt(hours[1],1, getX(), getY(i++));
-    sys_writeAt(':',1, getX(), getY(i++));
-    sys_writeAt(minutes[0],1, getX(), getY(i++));
-    sys_writeAt(minutes[1],1, getX(), getY(i++));
-    sys_writeAt(':',1, getX(), getY(i++));
-    sys_writeAt(seconds[0],1, getX(), getY(i++));
-    sys_writeAt(seconds[1],1, getX(), getY(i++));
-    sys_writeAt(':',1, getX(), getY(i++));
-    sys_writeAt(decimals[0],1, getX(), getY(i++));
-    sys_writeAt(decimals[1],1, getX(), getY(i++));
+    sys_writeAt(&hours[0], 1, getX(), getY(i++));
+    sys_writeAt(&hours[1], 1, getX(), getY(i++));
+    sys_writeAt(":", 1, getX(), getY(i++));
+    sys_writeAt(&minutes[0], 1, getX(), getY(i++));
+    sys_writeAt(&minutes[1], 1, getX(), getY(i++));
+    sys_writeAt(":", 1, getX(), getY(i++));
+    sys_writeAt(&seconds[0], 1, getX(), getY(i++));
+    sys_writeAt(&seconds[1], 1, getX(), getY(i++));
+    sys_writeAt(":", 1, getX(), getY(i++));
+    sys_writeAt(&decimals[0], 1, getX(), getY(i++));
+    sys_writeAt(&decimals[1], 1, getX(), getY(i++));
 }
 
 uint8_t hours_elapsed()

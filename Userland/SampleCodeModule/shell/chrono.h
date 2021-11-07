@@ -35,6 +35,7 @@ void stop();
 
 void print_chrono();
 
+uint8_t isChrono(uint8_t key);
 void processChrono(uint8_t key);
 void updateChrono();
 uint8_t hours_elapsed();

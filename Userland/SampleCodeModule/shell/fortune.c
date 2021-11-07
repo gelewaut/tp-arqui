@@ -9,7 +9,7 @@
 
 #define ESC 0
 
-void fortune_init()
+uint8_t fortune_init()
 {
     // Setup
     clear();
@@ -53,7 +53,6 @@ void print_welcome()
     printf("Con las letras juegue a nuestro hangman \n");
     printf("Con los numeros juegue al sudoku \n");
     printf("Con las teclas 'BACKSPACE' y 'SHIFTR' interactue con el cronometro \n");
-    halt(5);
 }
 
 /*
@@ -66,13 +65,13 @@ void print_limits()
     // cols
     for (int i = 0; i < MAX_ROWS - 1; i++)
     {
-        sys_writeAt('|',1, i, 40);
+        sys_writeAt("|", 1, i, 40);
     }
 
     for (int i = 0; i < MAX_COLS; i++)
     {
-        sys_writeAt('-',1, 15, i);
-        sys_writeAt('-',1, 24, i);
+        sys_writeAt("-", 1, 15, i);
+        sys_writeAt("-", 1, 24, i);
     }
 }
 

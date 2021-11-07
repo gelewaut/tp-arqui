@@ -18,11 +18,11 @@ static char buffer[BUFFER_SIZE] = {0};
 
 static char hexArray[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
-uint64_t numToStr(char * buf, unsigned long int num, int base)
+uint64_t numToStr(char *buf, unsigned long int num, int base)
 {
 	cleanBuffer();
 	unsigned char aux;
-	int i = BUFFER_SIZE-1;
+	int i = BUFFER_SIZE - 1;
 	buffer[i--] = 0;
 	// if (num == 0)
 	// 	buffer[i--] = '0';
@@ -32,8 +32,8 @@ uint64_t numToStr(char * buf, unsigned long int num, int base)
 		buffer[i--] = hexArray[aux];
 		num /= base;
 	}
-	buf = &buffer[i+1];
-	return BUFFER_SIZE-(i+2);
+	buf = &buffer[i + 1];
+	return BUFFER_SIZE - (i + 2);
 }
 
 int strToNum(char *str)
@@ -120,7 +120,7 @@ int scanf(char *str, ...)
 
 void printf(char *string, ...)
 {
-	char * buf;
+	char *buf;
 	int i = 0, j, argumentCount = 0;
 	while (string[i])
 	{
@@ -150,10 +150,10 @@ void printf(char *string, ...)
 			{
 			case 'd':
 				j = numToStr(buf, va_arg(list, int), 10);
-				sys_write(STDOUT,buf,j);
+				sys_write(STDOUT, buf, j);
 				break;
 			case 'c':
-				putChar(va_arg(list,int));
+				putChar(va_arg(list, int));
 				break;
 			case 's':
 				buf = va_arg(list, int);
@@ -221,4 +221,12 @@ void clear()
 	{
 		printf("\n");
 	}
+}
+
+uint16_t string_lenght(const char *str)
+{
+	uint16_t i = 0;
+	while (str[i])
+		i++;
+	return i;
 }

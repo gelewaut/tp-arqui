@@ -2,7 +2,7 @@
 #define _FORTUNE_H_
 #include <stdint.h>
 
-void fortune_init();
+uint8_t fortune_init();
 
 void print_welcome();
 

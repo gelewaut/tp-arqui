@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-uint64_t numToStr(char * buf, unsigned long int num, int base);
+uint64_t numToStr(char *buf, unsigned long int num, int base);
 int strToNum(char *str);
 int string_compare(const char *s1, const char *s2);
 void printf(char *string, ...);
@@ -17,5 +17,7 @@ uint8_t getHours();
 uint8_t getMinutes();
 uint8_t getSeconds();
 uint64_t getTicks();
+void clear();
+uint16_t string_lenght(const char *str);
 
 #endif

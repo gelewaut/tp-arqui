@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
+void updateClock();
+
 void processTime();
 
 void print_clock();

@@ -41,9 +41,12 @@ void print_info();
 
 uint8_t processSudoku(uint8_t key);
 
-uint8_t parseArrow(uint8_t key);
+void parseArrow(uint8_t key);
 
 uint8_t check_win();
 
+uint8_t isArrow(uint8_t key);
+
+uint8_t isNumber(uint8_t key);
 
 #endif
