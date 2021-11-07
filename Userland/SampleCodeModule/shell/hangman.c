@@ -1,6 +1,6 @@
 #include <hangman.h>
 #include <userlibc.h>
-#define DICTIONARY_SIZE 3
+#define DICTIONARY_SIZE 6
 
 const char * dictionary[DICTIONARY_SIZE] = {"chau", "hola", "gola","mesi","buen","malo",};
 
@@ -14,7 +14,7 @@ void processHangman(){
 
     } while (number < 0 || number > 6);
     
-    char * word = dictionary[number-1];
+    const char * word = dictionary[number-1];
     int strlen = 4;
 
     int mask[strlen];

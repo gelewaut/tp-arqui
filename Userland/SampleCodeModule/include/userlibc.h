@@ -3,19 +3,13 @@
 
 #include <stdint.h>
 
-char *numToStr(unsigned long int num, int base);
+uint64_t numToStr(char * buf, unsigned long int num, int base);
 int strToNum(char *str);
 int string_compare(const char *s1, const char *s2);
 void printf(char *string, ...);
-uint8_t getChar();
-void putChar(uint8_t c);
-char *numToStr(unsigned long int num, int base);
-int strToNum(char *str);
-int string_compare(const char *s1, const char *s2);
 int scanf(char *string, ...);
-void printf(char *string, ...);
-uint8_t getChar();
-void putChar(uint8_t c);
+char getChar();
+void putChar(char c);
 void printDec(int num);
 void printHex(int num);
 void cleanBuffer();

@@ -14,28 +14,26 @@
 #define CLOCK_MINUTES 4
 #define CLOCK_SECONDS 2
 
-static char *buffer[BUFFER_SIZE] = {0};
+static char buffer[BUFFER_SIZE] = {0};
 
 static char hexArray[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
-char *numToStr(unsigned long int num, int base)
+uint64_t numToStr(char * buf, unsigned long int num, int base)
 {
 	cleanBuffer();
-	char aux = num % base;
-	int i = BUFFER_SIZE;
-	buffer[i] = 0;
-	if (num == 0)
-		buffer[i--] = '0';
+	unsigned char aux;
+	int i = BUFFER_SIZE-1;
+	buffer[i--] = 0;
+	// if (num == 0)
+	// 	buffer[i--] = '0';
 	while (i >= 0 && num > 0)
 	{
 		aux = num % base;
-		buffer[i] = hexArray[aux];
-		i--;
+		buffer[i--] = hexArray[aux];
 		num /= base;
 	}
-
-	//aca antes estaba asi:     return buffer+i+1;
-	return *(buffer + i + 1);
+	buf = &buffer[i+1];
+	return BUFFER_SIZE-(i+2);
 }
 
 int strToNum(char *str)
@@ -122,7 +120,8 @@ int scanf(char *str, ...)
 
 void printf(char *string, ...)
 {
-	int i = 0, argumentCount = 0;
+	char * buf;
+	int i = 0, j, argumentCount = 0;
 	while (string[i])
 	{
 		if (string[i] == '%')
@@ -150,13 +149,15 @@ void printf(char *string, ...)
 			switch (*string)
 			{
 			case 'd':
-				printDec(va_arg(list, int));
+				j = numToStr(buf, va_arg(list, int), 10);
+				sys_write(STDOUT,buf,j);
 				break;
 			case 'c':
-				putChar(va_arg(list, int));
+				putChar(va_arg(list,int));
 				break;
 			case 's':
-				printf(va_arg(list, int));
+				buf = va_arg(list, int);
+				printf(buf);
 				break;
 			default:
 				break;
@@ -167,27 +168,29 @@ void printf(char *string, ...)
 	va_end(list);
 }
 
-uint8_t getChar()
+char getChar()
 {
-	uint8_t c;
+	char c;
 	sys_read(STDIN, &c, 1);
 	return c;
 }
 
-void putChar(uint8_t c)
+void putChar(char c)
 {
 	sys_write(STDOUT, &c, 1);
 }
 
-void printDec(int num)
-{
-	printf(numToStr(num, 10));
-}
+// void printDec(int num)
+// {
+// 	char * buf;
+// 	int i = numToStr(char num, 10)
+// 	printf();
+// }
 
-void printHex(int num)
-{
-	printf(numToStr(num, 16));
-}
+// void printHex(int num)
+// {
+// 	printf(numToStr(num, 16));
+// }
 
 void cleanBuffer()
 {
