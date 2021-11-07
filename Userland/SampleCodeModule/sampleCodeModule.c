@@ -14,7 +14,7 @@
 #include <userlibc.h>
 
 int main() {
-	clear();
+	// clear();
 	init_shell();
 	// char c;
 	// while (1) {

@@ -7,7 +7,7 @@
 #define BUFFER_SIZE 32
 
 #define STDIN 0
-#define STDOUT 1
+#define STDOUT 0
 #define STDERR 2
 
 #define CLOCK_HOURS 7
@@ -250,7 +250,7 @@ char getChar()
 
 void putChar(char c)
 {
-	sys_write(0, &c, 1);
+	sys_write(STDOUT, &c, 1);
 }
 
 void printCharAt (char c, int x, int y) {
