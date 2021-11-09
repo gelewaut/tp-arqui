@@ -229,6 +229,7 @@ _writeAtHandler:
 ;pasaje de parametro via rax -> al
 _clockHandler:
 	pushStateSysCall
+	mov al, 2
 	out 70h, al
 	in ax, 71h
 	popStateSysCall

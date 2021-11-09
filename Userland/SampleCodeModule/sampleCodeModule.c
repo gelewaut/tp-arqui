@@ -13,7 +13,8 @@
 #include <shell.h>
 #include <userlibc.h>
 
-int main() {
+int main()
+{
 	// clear();
 	init_shell();
 	// char c;
@@ -24,7 +25,6 @@ int main() {
 
 	return 0;
 }
-
 
 // void shell_init() {
 //     while(1) {
