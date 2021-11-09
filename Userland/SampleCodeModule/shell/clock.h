@@ -9,8 +9,8 @@ void processTime();
 
 void print_clock();
 
-uint8_t getClockX();
+uint8_t getClockX(uint8_t x);
 
-uint8_t getClockY(uint8_t i);
+uint8_t getClockY();
 
 #endif

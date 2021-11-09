@@ -8,7 +8,7 @@ const char * dictionary[DICTIONARY_SIZE] = {"chau", "hola", "gola","mesi","buen"
 
 void processHangman(){
     // char * str = "Welcome to Hangman!";
-    sys_writeAt("Welcome to Hangman!",20,0,0);
+    sys_writeAt("BIENVENIDO AL HANGMAN!",23,7,0);
 
     const char * word = "hola";
     int strlen = 4;
@@ -21,7 +21,7 @@ void processHangman(){
     int gameOver = 0;
     while (!gameOver)
     {
-        sys_writeAt("The word is:",13,10,2);
+        sys_writeAt("La palabra es:",15,10,2);
         for (int i = 0; i < strlen; i++)
         {
             if (mask[i])
@@ -46,9 +46,9 @@ void processHangman(){
 
         if (!guessed)
         {
-            sys_writeAt("LETRA INCORRECTA!",18,10,8);
+            sys_writeAt("LETRA INCORRECTA!",18,7,8);
         }else{
-            sys_writeAt("                 ",18,10,8);
+            sys_writeAt("                 ",18,7,8);
         }
         
 
@@ -60,6 +60,13 @@ void processHangman(){
             }
         }
     }
+        
+        for (int i = 0; i < strlen; i++)
+        {
+            printCharAt(word[i], 24+i,2);
+        }
     
-    sys_writeAt("VICTORIA! La palabra es: \"hola\"",28,10, 10);
+    sys_writeAt("                             ",30,7,6);
+
+    sys_writeAt("VICTORIA!",10,7, 10);
 }

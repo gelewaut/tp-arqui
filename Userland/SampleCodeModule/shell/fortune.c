@@ -40,7 +40,7 @@ uint8_t fortune_init()
             break;
         }
         // updateChrono();
-        // updateClock();
+        updateClock();
     }
 
     // Shutdown
