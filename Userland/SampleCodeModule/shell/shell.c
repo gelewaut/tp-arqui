@@ -7,10 +7,10 @@
 
 #define PROMPT "$>"
 #define MAX_BUFFER 128
-#define MAX_COMMAND_LENGHT 5
-#define MAX_ARGS 3
-#define MAX_ARG_LENGHT 5
-#define NUMBER_OF_COMMANDS 5
+#define MAX_COMMAND_LENGHT 8
+#define MAX_ARGS 0
+#define MAX_ARG_LENGHT 0
+#define NUMBER_OF_COMMANDS 6
 
 #define BACKSPACE 127
 #define ENTER '\n'
@@ -18,12 +18,13 @@
 #define EXIT_SUCCESS 1
 #define EXIT_FAILURE 0
 
-static char shell_buffer[MAX_BUFFER] = {0};
-static char command_buffer[MAX_COMMAND_LENGHT] = {0};
-static char args[MAX_ARGS][MAX_ARG_LENGHT];
+static char shell_buffer[MAX_BUFFER+1] = {0};
 static int bufferIdx = 0;
+static char command_buffer[MAX_COMMAND_LENGHT+1] = {0};
+static char args[MAX_ARGS][MAX_ARG_LENGHT+1];
 
-static char *valid_commands[NUMBER_OF_COMMANDS] = {
+static char * valid_commands[NUMBER_OF_COMMANDS] = {
+    "exit",
     "help",    // 0
     "fortune",  // 1
     "time",     // 2
@@ -31,12 +32,12 @@ static char *valid_commands[NUMBER_OF_COMMANDS] = {
     "printmem", // 4
 };
 
-static uint8_t args_for_command[NUMBER_OF_COMMANDS] = {
-    0,
-    0,
-    0,
-    0,
-    0};
+// static uint8_t args_for_command[NUMBER_OF_COMMANDS] = {
+//     0,
+//     0,
+//     0,
+//     0,
+//     0};
 
 void init_shell()
 {
@@ -52,7 +53,7 @@ void init_shell()
 
 void shell_welcome()
 {
-    printf("WELCOME TO SHELL\n");
+    printf("WELCOME TO SHELL");
 }
 
 void shell_loop()
@@ -61,11 +62,13 @@ void shell_loop()
 
     do
     {
+        putChar('\n');
         printf(PROMPT);
         shell_read_line();
         shell_parse_line();
+        // printf(command_buffer);
         mustContinue = shell_execute();
-        clear_buffer();
+        cleanup();
 
     } while (mustContinue);
 }
@@ -78,13 +81,16 @@ void shell_read_line()
     {
         if (c == BACKSPACE)
         {
+            if (bufferIdx>0) {
             shell_buffer[--bufferIdx] = 0;
+            putChar(c);
+            }
         }
         else
         {
             shell_buffer[bufferIdx++] = c;
+            putChar(c);
         }
-        putChar(c);
     }
 }
 
@@ -118,26 +124,25 @@ void shell_parse_line()
 
 uint8_t shell_execute()
 {
-    uint8_t cmd, result;
-    if ((cmd = isCommand(command_buffer)) != -1)
+    int8_t cmd = isCommand(), result = 1;
+    if (cmd > 0)
     {
         result = runCommand(cmd);
-    }
-    else
+    }else if (cmd == 0)
     {
+        return 0;
+    } else{
         printf("\nUnknown command");
     }
-
     cleanup();
-    putChar('\n');
     return result;
 }
 
-uint8_t isCommand(const char * command)
+int8_t isCommand()
 {
     for (int i = 0; i < NUMBER_OF_COMMANDS; i++)
     {
-        if (string_compare(command, valid_commands[i]))
+        if (string_compare(command_buffer, valid_commands[i]) == 0)
         {
             return i;
         }
@@ -145,31 +150,36 @@ uint8_t isCommand(const char * command)
     return -1;
 }
 
-uint8_t runCommand(uint8_t cmd)
+int8_t runCommand(int8_t cmd)
 {
     switch (cmd)
     {
     // En cada caso puedo definir si le paso args si es necesario
     // y cuantos les paso
-    case 0:
-    {
-        return helpCommand();
-    }
     case 1:
     {
-        return fortuneCommand();
+        return helpCommand();
+        break;
     }
     case 2:
     {
-        return timeCommand();
+        return fortuneCommand();
+        break;
     }
     case 3:
     {
-        return inforegCommand();
+        return timeCommand();
+        break;
     }
     case 4:
     {
+        return inforegCommand();
+        break;
+    }
+    case 5:
+    {
         return printmemCommand();
+        break;
     }
     }
     return -1;
@@ -212,6 +222,7 @@ uint8_t inforegCommand(){
     putChar('\n');
     return EXIT_SUCCESS;
 }
+
 uint8_t printmemCommand(){
     sys_printMem(0x000000);
     return EXIT_SUCCESS;
