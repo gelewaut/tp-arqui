@@ -26,6 +26,11 @@
 
 #define BLANK_TOKEN '_'
 
+#define UP_KEY 17
+#define DOWN_KEY 20
+#define RIGHT_KEY 19
+#define LEFT_KEY 18
+
 static uint8_t grill[9][9] =
     {
         {5, 0, 0, 0, 8, 6, 0, 0, 1},
@@ -77,7 +82,7 @@ uint8_t processSudoku(uint8_t key)
 
 uint8_t isArrow(uint8_t key)
 {
-    if (key == ARROW_DOWN || key == ARROW_LEFT || key == ARROW_RIGHT || key == ARROW_UP)
+    if (key == UP_KEY || key == DOWN_KEY || key == RIGHT_KEY || key == LEFT_KEY)
         return 1;
     return 0;
 }
@@ -91,22 +96,22 @@ void parseArrow(uint8_t key)
 {
     switch (key)
     {
-    case ARROW_UP:
+    case UP_KEY:
     {
         if (cursor_y < 8)
             cursor_y++;
     }
-    case ARROW_DOWN:
+    case DOWN_KEY:
     {
         if (cursor_y > 0)
             cursor_y--;
     }
-    case ARROW_LEFT:
+    case LEFT_KEY:
     {
         if (cursor_x > 0)
             cursor_x--;
     }
-    case ARROW_RIGHT:
+    case RIGHT_KEY:
     {
         if (cursor_x < 8)
             cursor_x++;
@@ -215,8 +220,8 @@ void print_grill()
     int offset_x, offset_y;
     uint8_t token;
     uint8_t num;
-    offset_x = 0;
-    offset_y = 10;
+    offset_x = 10;
+    offset_y = 0;
     for (int i = 0; i < MAX_ROWS; i++)
     {
         for (int j = 0; j < MAX_COLS; j++)

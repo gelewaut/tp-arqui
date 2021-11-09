@@ -8,6 +8,8 @@
 #include <syscalls.h>
 
 #define ESC 0
+#define ROWS 25
+#define COLS 80
 
 uint8_t fortune_init()
 {
@@ -37,8 +39,8 @@ uint8_t fortune_init()
         {
             break;
         }
-        updateChrono();
-        updateClock();
+        // updateChrono();
+        // updateClock();
     }
 
     // Shutdown
@@ -53,6 +55,14 @@ void print_welcome()
     printf("Con las letras juegue a nuestro hangman \n");
     printf("Con los numeros juegue al sudoku \n");
     printf("Con las teclas 'BACKSPACE' y 'SHIFTR' interactue con el cronometro \n");
+
+    char c = 0;
+    do
+    {
+        printf("Presione una tecla para comenzar \n");
+    } while ((c = getChar()) == 0);
+    
+    clear();
 }
 
 /*
@@ -63,15 +73,15 @@ Dibuja los bordes
 void print_limits()
 {
     // cols
-    for (int i = 0; i < MAX_ROWS - 1; i++)
+    for (int i = 0; i < ROWS ; i++)
     {
-        printCharAt('|', i, 40);
+        printCharAt('|', 40, i);
     }
 
-    for (int i = 0; i < MAX_COLS; i++)
+    for (int i = 0; i < COLS; i++)
     {
-        printCharAt('-', 15, i);
-        printCharAt('-', 24, i);
+        printCharAt('-', i, 15);
+        printCharAt('-', i, 23);
     }
 }
 

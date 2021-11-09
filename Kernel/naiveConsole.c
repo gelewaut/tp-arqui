@@ -166,9 +166,10 @@ uint64_t PrintAt(char * character, uint64_t bytes, int x, int y) {
 			x=0;
 			y++;
 		}
-		position = (x*2) + (y*width);
-		video[position] = character;
+		position = (x*2) + (y*width*2);
+		video[position] = character[i];
 		video[position+1] = 0x07;
+		x++;
 	}
 	return i;
 }
