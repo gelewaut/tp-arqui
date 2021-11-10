@@ -35,6 +35,8 @@ void print_sudoku();
 
 void print_grill();
 
+void print_values_buff();
+
 void print_num_buff();
 
 void print_info();

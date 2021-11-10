@@ -26,97 +26,64 @@
 
 #define BLANK_TOKEN '_'
 
-#define UP_KEY 17
-#define DOWN_KEY 20
-#define RIGHT_KEY 19
-#define LEFT_KEY 18
-
 static uint8_t grill[9][9] =
     {
-        {5, 0, 0, 0, 8, 6, 0, 0, 1},
-        {0, 0, 2, 7, 0, 1, 6, 0, 0},
-        {0, 7, 1, 0, 0, 0, 2, 5, 0},
-        {9, 1, 0, 0, 2, 0, 0, 7, 0},
-        {3, 0, 0, 1, 4, 5, 0, 0, 6},
-        {0, 6, 0, 0, 9, 0, 0, 2, 4},
-        {0, 5, 3, 0, 0, 0, 4, 0, 0},
-        {0, 0, 8, 9, 0, 3, 5, 0, 0},
-        {2, 0, 0, 5, 1, 0, 0, 0, 7}};
+        {0, 8, 0, 7, 0, 1, 0, 3, 0},
+        {4, 0, 9, 0, 0, 0, 0, 0, 0},
+        {0, 5, 0, 0, 5, 0, 4, 1, 8},
+        {7, 0, 0, 0, 0, 9, 0, 0, 0},
+        {8, 0, 0, 6, 1, 0, 5, 0, 0},
+        {0, 3, 5, 0, 0, 0, 0, 2, 9},
+        {0, 6, 0, 4, 0, 7, 0, 9, 0},
+        {1, 0, 0, 0, 0, 8, 0, 0, 4},
+        {0, 2, 0, 0, 5, 0, 0, 7, 0},
+};
 
-static const char *num_buff_prompt = "TO INSERT: ";
-static uint8_t *num_buffer;
-static uint8_t cursor_x = 0, cursor_y = 0;
+static uint8_t solution[9][9] =
+    {
+        {2, 8, 6, 7, 4, 1, 9, 3, 5},
+        {4, 1, 9, 3, 8, 5, 7, 6, 2},
+        {3, 5, 7, 9, 6, 2, 4, 1, 8},
+        {7, 4, 1, 5, 2, 9, 3, 8, 6},
+        {8, 9, 2, 6, 1, 3, 5, 4, 7},
+        {6, 3, 5, 8, 7, 4, 1, 2, 9},
+        {5, 6, 8, 4, 3, 7, 2, 9, 1},
+        {1, 7, 3, 2, 9, 8, 6, 5, 4},
+        {9, 2, 4, 1, 5, 6, 8, 7, 3},
+};
 
-// static char * info_buffer[BUFFER_LENGHT] = {0};
-static char * info_buffer;
-static uint8_t info_idx = 0;
+// row | col | value
+#define VALUES_LEN 3
+static uint8_t values[VALUES_LEN] = {0, 0, 0};
+static uint8_t values_idx = 0;
+
+static uint8_t *won_string = "Congratulations";
+static uint8_t *bad_move_string = "Wrong move";
+
+static uint8_t won = 0;
 
 uint8_t processSudoku(uint8_t key)
 {
+    if (won)
+        return;
     if (isNumber(key))
     {
-        *num_buffer = key + '0';
+        // sin cursor
+        values[values_idx] = key - '0';
+        values_idx = (values_idx + 1) % 3;
     }
     else if (key == '\n')
     {
-        uint8_t goodMove = check_move(*num_buffer, cursor_x, cursor_y);
-        if (goodMove)
+        uint8_t isGoodMove = check_move(values[2], values[0], values[1]);
+        if (isGoodMove)
         {
-            grill[cursor_x][cursor_y] = *num_buffer;
-            info_buffer = "Movimiento realizado con exito";
-        }
-        else
-        {
-            info_buffer = "Movimiento ilegal";
+            grill[values[0] - 1][values[1] - 1] = values[2];
         }
     }
-    else if (isArrow(key))
-    {
-        parseArrow(key);
-    }
-
+    won = check_win();
     print_sudoku();
     //cambiar
     return 1;
-}
-
-uint8_t isArrow(uint8_t key)
-{
-    if (key == UP_KEY || key == DOWN_KEY || key == RIGHT_KEY || key == LEFT_KEY)
-        return 1;
-    return 0;
-}
-
-uint8_t isNumber(uint8_t key)
-{
-    return (key >= '0' && key <= '9');
-}
-
-void parseArrow(uint8_t key)
-{
-    switch (key)
-    {
-    case UP_KEY:
-    {
-        if (cursor_y < 8)
-            cursor_y++;
-    }
-    case DOWN_KEY:
-    {
-        if (cursor_y > 0)
-            cursor_y--;
-    }
-    case LEFT_KEY:
-    {
-        if (cursor_x > 0)
-            cursor_x--;
-    }
-    case RIGHT_KEY:
-    {
-        if (cursor_x < 8)
-            cursor_x++;
-    }
-    }
 }
 
 uint8_t check_win()
@@ -126,7 +93,7 @@ uint8_t check_win()
     {
         for (int j = 0; j < MAX_COLS && won; j++)
         {
-            won = check_move(grill[i][j], i, j);
+            won = (grill[i][j] == solution[i]);
         }
     }
     return won;
@@ -134,19 +101,12 @@ uint8_t check_win()
 
 uint8_t check_move(uint8_t num, uint8_t row, uint8_t col)
 {
-    uint8_t isValid = 1;
+    if (row < 1 || row > 9)
+        return 0;
+    if (col < 1 || col > 9)
+        return 0;
 
-    isValid = check_row(num, row);
-    if (isValid)
-    {
-        isValid = check_col(num, col);
-    }
-    if (isValid)
-    {
-        isValid = check_square(num, row, col);
-    }
-
-    return isValid;
+    return (num == solution[row - 1][col - 1]);
 }
 
 uint8_t check_row(uint8_t num, uint8_t row)
@@ -199,9 +159,6 @@ uint8_t check_square(uint8_t num, uint8_t row, uint8_t col)
 void print_sudoku()
 {
     print_grill();
-    print_num_buff();
-    print_info();
-    *info_buffer=0;
 }
 
 /*
@@ -217,53 +174,53 @@ void print_sudoku()
 
 void print_grill()
 {
-    int offset_x, offset_y;
-    uint8_t token;
+    // int offset_x, offset_y;
+    // uint8_t token;
+    // uint8_t num;
+    // offset_x = 10;
+    // offset_y = 0;
+    // for (int i = 0; i < MAX_ROWS; i++)
+    // {
+    //     for (int j = 0; j < MAX_COLS; j++)
+    //     {
+    //         num = grill[i][j];
+    //         if (num >= 1 && num <= 9)
+    //         {
+    //             token = num + '0';
+    //         }
+    //         else
+    //         {
+    //             token = BLANK_TOKEN;
+    //         }
+    //         printCharAt(token, SUDOKU_SCREEN_START_X + offset_x + i, SUDOKU_SCREEN_START_Y + offset_y + j);
+    //     }
+    // }
+
     uint8_t num;
-    offset_x = 10;
-    offset_y = 0;
+    uint8_t token;
+    uint8_t offset_x = 0;
     for (int i = 0; i < MAX_ROWS; i++)
     {
         for (int j = 0; j < MAX_COLS; j++)
         {
             num = grill[i][j];
-            if (num >= 1 && num <= 9)
-            {
-                token = num + '0';
-            }
-            else
-            {
-                token = BLANK_TOKEN;
-            }
-            printCharAt(token,SUDOKU_SCREEN_START_X + offset_x + i,SUDOKU_SCREEN_START_Y + offset_y + j);
+            token = (num != 0 ? num + '0' : BLANK_TOKEN);
+            printCharAt(token, SUDOKU_SCREEN_START_X + offset_x + j, SUDOKU_SCREEN_START_Y + i);
         }
     }
 
-    // Prints the cursor
-    printCharAt('*', offset_x + cursor_x, offset_y + cursor_y);
+    printCharAt(values[0] + '0', SUDOKU_SCREEN_START_X + 2, SUDOKU_SCREEN_START_Y + 10);
+    printCharAt(values[1] + '0', SUDOKU_SCREEN_START_X + 4, SUDOKU_SCREEN_START_Y + 10);
+    printCharAt(values[2] + '0', SUDOKU_SCREEN_START_X + 6, SUDOKU_SCREEN_START_Y + 10);
+
+    for (int b = SUDOKU_SCREEN_START_X; b < SUDOKU_SCREEN_END_X; b++)
+    {
+        printCharAt(' ', b, SUDOKU_SCREEN_START_Y + 11);
+    }
+    printCharAt('^', SUDOKU_SCREEN_START_X + (values_idx + 1) * 2, SUDOKU_SCREEN_START_Y + 11);
 }
 
-void print_num_buff()
+uint8_t isNumber(uint8_t key)
 {
-    uint8_t offset_x = 23;
-    uint8_t offset_y = 5;
-    int i;
-    for (i = 0; num_buff_prompt[i]; i++)
-    {
-        printCharAt(num_buff_prompt[i], SUDOKU_SCREEN_START_X + offset_x + i, SUDOKU_SCREEN_START_Y + offset_y);
-    }
-    char *aux = 0;
-    numToStr(aux, *num_buffer, 10);
-    printCharAt (*aux, SUDOKU_SCREEN_START_X + offset_x + i, SUDOKU_SCREEN_START_Y + offset_y);
-}
-
-void print_info()
-{
-    uint16_t infolen = string_lenght(info_buffer);
-    uint8_t info_offset_x = 12;
-    for (int i = 0; i < info_idx; i++)
-    {
-        sys_writeAt(info_buffer, infolen, SUDOKU_SCREEN_START_X + info_offset_x, SUDOKU_SCREEN_START_Y + i);
-    }
-    *info_buffer=0;
+    return (key >= '1' && key <= '9');
 }
