@@ -1,4 +1,4 @@
- /*
+/*
  *   interrupts.h
  *
  *  Created on: Apr 18, 2010
@@ -31,7 +31,7 @@ void _exception6Handler(void);
 
 void _sysCall80Handler(void);
 void _writeAtHandler(void);
-void _clockHandler(void);
+uint64_t _clockHandler(uint64_t code);
 void _timerTickHandler(void);
 void _infoRegHandler(void);
 void _printMemHandler(void);

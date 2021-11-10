@@ -18,14 +18,14 @@
 #define EXIT_SUCCESS 1
 #define EXIT_FAILURE 0
 
-static char shell_buffer[MAX_BUFFER+1] = {0};
+static char shell_buffer[MAX_BUFFER + 1] = {0};
 static int bufferIdx = 0;
-static char command_buffer[MAX_COMMAND_LENGHT+1] = {0};
-static char args[MAX_ARGS][MAX_ARG_LENGHT+1];
+static char command_buffer[MAX_COMMAND_LENGHT + 1] = {0};
+static char args[MAX_ARGS][MAX_ARG_LENGHT + 1];
 
-static char * valid_commands[NUMBER_OF_COMMANDS] = {
+static char *valid_commands[NUMBER_OF_COMMANDS] = {
     "exit",
-    "help",    // 0
+    "help",     // 0
     "fortune",  // 1
     "time",     // 2
     "inforeg",  // 3
@@ -81,9 +81,10 @@ void shell_read_line()
     {
         if (c == BACKSPACE)
         {
-            if (bufferIdx>0) {
-            shell_buffer[--bufferIdx] = 0;
-            putChar(c);
+            if (bufferIdx > 0)
+            {
+                shell_buffer[--bufferIdx] = 0;
+                putChar(c);
             }
         }
         else
@@ -128,10 +129,13 @@ uint8_t shell_execute()
     if (cmd > 0)
     {
         result = runCommand(cmd);
-    }else if (cmd == 0)
+    }
+    else if (cmd == 0)
     {
         return 0;
-    } else{
+    }
+    else
+    {
         printf("\nUnknown command");
     }
     cleanup();
@@ -216,14 +220,16 @@ uint8_t fortuneCommand()
     return EXIT_SUCCESS;
 }
 
-uint8_t inforegCommand(){
+uint8_t inforegCommand()
+{
     putChar('\n');
     sys_infoReg();
     putChar('\n');
     return EXIT_SUCCESS;
 }
 
-uint8_t printmemCommand(){
+uint8_t printmemCommand()
+{
     sys_printMem(0x000000);
     return EXIT_SUCCESS;
 }

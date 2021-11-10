@@ -56,8 +56,7 @@ sys_writeAt:
     ret
 sys_clock:
     pushAsm
-    mov rax, 0
-    mov rax, rdi
+    ; mov rax, rdi
     INT 82h
     popASM
     ret

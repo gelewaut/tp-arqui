@@ -61,77 +61,84 @@ int string_compare(const char *s1, const char *s2)
 	return s1[i] - s2[i];
 }
 
-#define ISSPACE(c) c==' '
-#define ISDIGIT(c) (c>= '0' && c<='9')
-#define ISUPPER(c) (c>='A' && c<='Z')
-#define ISALPHA(c) ((c>= 'a' && c<='z') || ISUPPER(c))
+#define ISSPACE(c) c == ' '
+#define ISDIGIT(c) (c >= '0' && c <= '9')
+#define ISUPPER(c) (c >= 'A' && c <= 'Z')
+#define ISALPHA(c) ((c >= 'a' && c <= 'z') || ISUPPER(c))
 #ifndef ULONG_MAX
-#define        ULONG_MAX        ((unsigned long)(~0L))                /* 0xFFFFFFFF */
+#define ULONG_MAX ((unsigned long)(~0L)) /* 0xFFFFFFFF */
 #endif
 #ifndef LONG_MAX
-#define        LONG_MAX        ((long)(ULONG_MAX >> 1))        /* 0x7FFFFFFF */
+#define LONG_MAX ((long)(ULONG_MAX >> 1)) /* 0x7FFFFFFF */
 #endif
 #ifndef LONG_MIN
-#define        LONG_MIN        ((long)(~LONG_MAX))                /* 0x80000000 */
+#define LONG_MIN ((long)(~LONG_MAX)) /* 0x80000000 */
 #endif
 
-long
-strtol(const char *nptr, char **endptr, register int base)
+long strtol(const char *nptr, char **endptr, register int base)
 {
-        register const char *s = nptr;
-        register unsigned long acc;
-        register int c;
-        register unsigned long cutoff;
-        register int neg = 0, any, cutlim;
-        /*
+	register const char *s = nptr;
+	register unsigned long acc;
+	register int c;
+	register unsigned long cutoff;
+	register int neg = 0, any, cutlim;
+	/*
          * Skip white space and pick up leading +/- sign if any.
          * If base is 0, allow 0x for hex and 0 for octal, else
          * assume decimal; if base is already 16, allow 0x.
          */
-        do {
-                c = *s++;
-        } while (ISSPACE(c));
-        if (c == '-') {
-                neg = 1;
-                c = *s++;
-        } else if (c == '+')
-                c = *s++;
-        if ((base == 0 || base == 16) &&
-            c == '0' && (*s == 'x' || *s == 'X')) {
-                c = s[1];
-                s += 2;
-                base = 16;
-        }
-        if (base == 0)
-                base = c == '0' ? 8 : 10;
+	do
+	{
+		c = *s++;
+	} while (ISSPACE(c));
+	if (c == '-')
+	{
+		neg = 1;
+		c = *s++;
+	}
+	else if (c == '+')
+		c = *s++;
+	if ((base == 0 || base == 16) &&
+		c == '0' && (*s == 'x' || *s == 'X'))
+	{
+		c = s[1];
+		s += 2;
+		base = 16;
+	}
+	if (base == 0)
+		base = c == '0' ? 8 : 10;
 
-        cutoff = neg ? -(unsigned long)LONG_MIN : LONG_MAX;
-        cutlim = cutoff % (unsigned long)base;
-        cutoff /= (unsigned long)base;
-        for (acc = 0, any = 0;; c = *s++) {
-                if (ISDIGIT(c))
-                        c -= '0';
-                else if (ISALPHA(c))
-                        c -= ISUPPER(c) ? 'A' - 10 : 'a' - 10;
-                else
-                        break;
-                if (c >= base)
-                        break;
-                if (any < 0 || acc > cutoff || (acc == cutoff && c > cutlim))
-                        any = -1;
-                else {
-                        any = 1;
-                        acc *= base;
-                        acc += c;
-                }
-        }
-        if (any < 0) {
-                acc = neg ? LONG_MIN : LONG_MAX;
-        } else if (neg)
-                acc = -acc;
-        if (endptr != 0)
-                *endptr = (char *) (any ? s - 1 : nptr);
-        return (acc);
+	cutoff = neg ? -(unsigned long)LONG_MIN : LONG_MAX;
+	cutlim = cutoff % (unsigned long)base;
+	cutoff /= (unsigned long)base;
+	for (acc = 0, any = 0;; c = *s++)
+	{
+		if (ISDIGIT(c))
+			c -= '0';
+		else if (ISALPHA(c))
+			c -= ISUPPER(c) ? 'A' - 10 : 'a' - 10;
+		else
+			break;
+		if (c >= base)
+			break;
+		if (any < 0 || acc > cutoff || (acc == cutoff && c > cutlim))
+			any = -1;
+		else
+		{
+			any = 1;
+			acc *= base;
+			acc += c;
+		}
+	}
+	if (any < 0)
+	{
+		acc = neg ? LONG_MIN : LONG_MAX;
+	}
+	else if (neg)
+		acc = -acc;
+	if (endptr != 0)
+		*endptr = (char *)(any ? s - 1 : nptr);
+	return (acc);
 }
 
 int scanf(char *str, ...)
@@ -253,7 +260,8 @@ void putChar(char c)
 	sys_write(STDOUT, &c, 1);
 }
 
-void printCharAt (char c, int x, int y) {
+void printCharAt(char c, int x, int y)
+{
 	sys_writeAt(&c, 1, x, y);
 }
 
@@ -303,4 +311,75 @@ uint16_t string_lenght(const char *str)
 	while (str[i])
 		i++;
 	return i;
+}
+
+void printDec(uint64_t value)
+{
+	printBase(value, 10);
+}
+
+void printHex(uint64_t value)
+{
+	printBase(value, 16);
+}
+
+void printBin(uint64_t value)
+{
+	printBase(value, 2);
+}
+
+void printBase(uint64_t value, uint32_t base)
+{
+	uintToBase(value, buffer, base);
+	print(buffer);
+}
+
+void print(const char *str)
+{
+	for (int i = 0; str[i]; i++)
+	{
+		printChar(str[i]);
+	}
+}
+
+void printChar(char c)
+{
+	sys_write(STDIN, &c, 1);
+}
+
+uint64_t getTicks()
+{
+	return sys_timerTick();
+}
+
+static uint32_t uintToBase(uint64_t value, char *buffer, uint32_t base)
+{
+	char *p = buffer;
+	char *p1, *p2;
+	uint32_t digits = 0;
+
+	//Calculate characters for each digit
+	do
+	{
+		uint32_t remainder = value % base;
+		*p++ = (remainder < 10) ? remainder + '0' : remainder + 'A' - 10;
+		digits++;
+	} while (value /= base);
+
+	// Terminate string in buffer.
+	*p = 0;
+
+	//Reverse string in buffer.
+	p1 = buffer;
+	p2 = p - 1;
+	while (p1 < p2)
+	{
+		char tmp = *p1;
+		*p1 = *p2;
+		*p2 = tmp;
+		p1++;
+		p2--;
+	}
+
+	return digits;
 }
