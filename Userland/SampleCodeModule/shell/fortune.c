@@ -22,6 +22,7 @@ uint8_t fortune_init()
     char c;
     while (1)
     {
+        print_sudoku();
         c = getChar();
         if (isHangman(c))
         {
@@ -40,7 +41,7 @@ uint8_t fortune_init()
             break;
         }
         // updateChrono();
-        updateClock();
+        // updateClock();
     }
 
     // Shutdown
@@ -61,7 +62,7 @@ void print_welcome()
     {
         printf("Presione una tecla para comenzar \n");
     } while ((c = getChar()) == 0);
-    
+
     clear();
 }
 
@@ -73,7 +74,7 @@ Dibuja los bordes
 void print_limits()
 {
     // cols
-    for (int i = 0; i < ROWS ; i++)
+    for (int i = 0; i < ROWS; i++)
     {
         printCharAt('|', 40, i);
     }
@@ -94,7 +95,7 @@ uint8_t isHangman(uint8_t c)
 
 uint8_t isSudoku(uint8_t c)
 {
-    if ((c >= '1' && c <= '9') || (c == '\n') || isArrow(c))
+    if ((c >= '1' && c <= '9') || (c == '\n'))
         return 1;
     return 0;
 }
