@@ -50,51 +50,60 @@ void print_chrono()
     char *hours, *minutes, *seconds, *decimals;
     uint64_t hlen, mlen, slen, dlen;
     // printDec(seconds_elapsed());
-    hlen = numToStr(hours, hours_elapsed(), 10);
-    mlen = numToStr(minutes, minutes_elapsed(), 10);
-    slen = numToStr(seconds, seconds_elapsed(), 10);
-    dlen = numToStr(decimals, decimals_elapsed(), 10);
+    // hlen = numToStr(hours, hours_elapsed(), 10);
+    // mlen = numToStr(minutes, minutes_elapsed(), 10);
+    // slen = numToStr(seconds, seconds_elapsed(), 10);
+    // dlen = numToStr(decimals, decimals_elapsed(), 10);
 
     // printf(hours);
 
 
     uint8_t i = 0;
-    printCharAt(hours[0], getX(i++), getY());
-    printCharAt(hours[1], getX(i++), getY());
-    printCharAt(':', getX(i++), getY());
-    printCharAt(minutes[0], getX(i++), getY());
-    printCharAt(minutes[1], getX(i++), getY());
-    printCharAt(':', getX(i++), getY());
-    printCharAt(seconds[0], getX(i++), getY());
-    printCharAt(seconds[1], getX(i++), getY());
-    printCharAt(':', getX(i++), getY());
-    printCharAt(decimals[0], getX(i++), getY());
-    printCharAt(decimals[1], getX(i++), getY());
+    printDecAT(hours_elapsed(), getX(i) ,getY());
+    printCharAt(':', getX(i+2), getY());
+    printDecAT(minutes_elapsed(), getX(i+3) ,getY());
+    printCharAt(':', getX(i+5), getY());
+    printDecAT(seconds_elapsed(), getX(i+6) ,getY());
+    printCharAt(':', getX(i+8), getY());
+    printDecAT(decimals_elapsed(), getX(i+9) ,getY());
+
+
+    // printCharAt(hours[0], getX(i++), getY());
+    // printCharAt(hours[1], getX(i++), getY());
+    // printCharAt(':', getX(i++), getY());
+    // printCharAt(minutes[0], getX(i++), getY());
+    // printCharAt(minutes[1], getX(i++), getY());
+    // printCharAt(':', getX(i++), getY());
+    // printCharAt(seconds[0], getX(i++), getY());
+    // printCharAt(seconds[1], getX(i++), getY());
+    // printCharAt(':', getX(i++), getY());
+    // printCharAt(decimals[0], getX(i++), getY());
+    // printCharAt(decimals[1], getX(i++), getY());
 }
 
 uint64_t hours_elapsed()
 {
-    return minutes_elapsed() / 60;
+    return (minutes_elapsed() / 60);
 }
 
 uint64_t minutes_elapsed()
 {
-    return (seconds_elapsed() / 60) % 60;
+    return ((seconds_elapsed() / 60) % 60);
 }
 
 uint64_t seconds_elapsed()
 {
-    return (ticks_elapsed() / TICK_FREQ) % 60;
+    return ((ticks_elapsed() / TICK_FREQ) % 60);
 }
 
 uint64_t decimals_elapsed()
 {
-    return (ticks_elapsed() / 2) % 10;
+    return ((ticks_elapsed() / 2) % 10);
 }
 
 uint64_t ticks_elapsed()
 {
-    return sys_timerTick() - start;
+    return (sys_timerTick() - start);
 }
 
 void resume()

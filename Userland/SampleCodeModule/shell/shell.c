@@ -209,7 +209,12 @@ uint8_t timeCommand()
     minutes = getMinutes();
     seconds = getSeconds();
 
-    printf("TIME: %d:%d:%d\n", hours, minutes, seconds);
+    printf("\nTIME: ");
+    printDec(hours);
+    putChar(':');
+    printDec(minutes);
+    putChar(':');
+    printDec(seconds);
 
     return EXIT_SUCCESS;
 }

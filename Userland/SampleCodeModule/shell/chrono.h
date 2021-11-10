@@ -6,13 +6,13 @@
 #define START_KEY '.'
 #define PAUSE_KEY ','
 
-#define CHRONO_SCREEN_START_X 15
-#define CHRONO_SCREEN_END_X 23
-#define CHRONO_SCREEN_START_Y 41
-#define CHRONO_SCREEN_END_Y 80
+#define CHRONO_SCREEN_START_X 41
+#define CHRONO_SCREEN_END_X 80
+#define CHRONO_SCREEN_START_Y 15
+#define CHRONO_SCREEN_END_Y 23
 
-#define CHRONO_OFFSET_X 3
-#define CHRONO_OFFSET_Y 15
+#define CHRONO_OFFSET_X 5
+#define CHRONO_OFFSET_Y 3
 
 // ticks per second
 #define TICK_FREQ 18
