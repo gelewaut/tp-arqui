@@ -1,6 +1,6 @@
 #include <hangman.h>
 #include <userlibc.h>
-#include <sysCalls.h>
+#include <syscalls.h>
 
 #define DICTIONARY_SIZE 6
 

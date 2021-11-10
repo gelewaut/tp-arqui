@@ -1,8 +1,13 @@
+#include <naiveConsole.h>
+#include <sysCalls.h>
+
 #define ZERO_EXCEPTION_ID 0
 #define OPCODE_EXCEPTION_ID 0
 
-static void zero_division();
-static void invalid_OPCODE();
+extern void print_ip();
+
+void zero_division();
+void invalid_OPCODE();
 
 void exceptionDispatcher(int exception) {
 	if (exception == ZERO_EXCEPTION_ID)
@@ -11,10 +16,18 @@ void exceptionDispatcher(int exception) {
 		invalid_OPCODE();
 }
 
-static void zero_division() {
-	// Handler para manejar excepcíon
+void zero_division() {
+	ncPrintFormat("Division By Zero ",RED,BLACK);
+	ncPrint("Instruction Pointer: ");
+	print_ip();
+	ncPrintChar('\n');
+	infoReg();
 }
 
-static void invalid_OPCODE() {
-	// Handler para manejar excepcion
+void invalid_OPCODE() {
+	ncPrintFormat("Invalid OPCODE ",RED,BLACK);
+	ncPrint("Instruction Pointer: ");
+	print_ip();
+	ncPrintChar('\n');
+	infoReg();
 }

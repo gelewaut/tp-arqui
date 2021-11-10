@@ -136,7 +136,7 @@ uint8_t shell_execute()
     }
     else
     {
-        printf("\nUnknown command");
+        printf("\nUnknown command type help for a list of commands");
     }
     cleanup();
     return result;
