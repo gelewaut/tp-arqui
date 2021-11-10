@@ -35,7 +35,7 @@ void load_idt() {
 
   setup_IDT_entry(0x80, (uint64_t)&_sysCall80Handler);
   setup_IDT_entry(0x81, (uint64_t)&_writeAtHandler);
-  setup_IDT_entry(0x82, (uint64_t)&_clockHandler);
+  // setup_IDT_entry(0x82, (uint64_t)&_clockHandler);
   setup_IDT_entry(0x83, (uint64_t)&_timerTickHandler);
   setup_IDT_entry(0x84, (uint64_t)&_infoRegHandler);
   setup_IDT_entry(0x85, (uint64_t)&_printMemHandler);

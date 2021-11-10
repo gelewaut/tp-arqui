@@ -103,13 +103,13 @@ int main()
 	ncPrint("[Finished]");
 	ncNewline();
 
-	while (1)
-	{
-		ncPrintDec(_clockHandler(0x04));
-		ncPrintDec(_clockHandler(0x02));
-		ncPrintDec(_clockHandler(0x00));
-		ncPrintln("");
-	}
+	// while (1)
+	// {
+	// 	ncPrintDec(_clockHandler(0x04));
+	// 	ncPrintDec(_clockHandler(0x02));
+	// 	ncPrintDec(_clockHandler(0x00));
+	// 	ncPrintln("");
+	// }
 
 	return 0;
 	// Fin de codigo de inicial

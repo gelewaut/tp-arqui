@@ -56,9 +56,9 @@ sys_writeAt:
     ret
 sys_clock:
     pushAsm
-    ; mov rax, rdi
-    INT 82h
-    popASM
+    mov rax, 2
+    INT 80h
+    popAsm
     ret
 
 sys_timerTick:
