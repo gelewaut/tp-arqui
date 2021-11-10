@@ -7,7 +7,7 @@
 #include <sudoku.h>
 #include <syscalls.h>
 
-#define ESC 0
+#define ESC '\e'
 #define ROWS 25
 #define COLS 80
 
@@ -45,6 +45,7 @@ uint8_t fortune_init()
     }
 
     // Shutdown
+    clear();
     return 1;
 }
 
@@ -55,7 +56,7 @@ void print_welcome()
     printf("Bienvenido a fortune \n");
     printf("Con las letras juegue a nuestro hangman \n");
     printf("Con los numeros juegue al sudoku \n");
-    printf("Con las teclas 'BACKSPACE' y 'SHIFTR' interactue con el cronometro \n");
+    printf("Con las teclas . y , interactue con el cronometro \n");
 
     char c = 0;
     do
