@@ -7,8 +7,8 @@ static uint64_t start;
 static uint8_t active = 0;
 static uint8_t paused = 0;
 
-static char *hours, *minutes, *seconds, *decimals;
-static uint64_t hlen, mlen, slen, dlen;
+
+
 
 uint8_t isChrono(uint8_t key)
 {
@@ -19,10 +19,16 @@ uint8_t isChrono(uint8_t key)
 
 void processChrono(uint8_t key)
 {
+
     if (key == START_KEY)
     {
-        if (!active)
+        if (paused)
+        {
             resume();
+        }else{
+            start = sys_timerTick();
+        }
+        
     }
     else if (key == PAUSE_KEY)
     {
@@ -31,6 +37,7 @@ void processChrono(uint8_t key)
         else
             stop();
     }
+    updateChrono();
 }
 
 void updateChrono()
@@ -40,41 +47,47 @@ void updateChrono()
 
 void print_chrono()
 {
+    char *hours, *minutes, *seconds, *decimals;
+    uint64_t hlen, mlen, slen, dlen;
+    // printDec(seconds_elapsed());
     hlen = numToStr(hours, hours_elapsed(), 10);
     mlen = numToStr(minutes, minutes_elapsed(), 10);
     slen = numToStr(seconds, seconds_elapsed(), 10);
     dlen = numToStr(decimals, decimals_elapsed(), 10);
 
+    // printf(hours);
+
+
     uint8_t i = 0;
-    printCharAt(hours[0], getX(), getY(i++));
-    printCharAt(hours[1], getX(), getY(i++));
-    printCharAt(':', getX(), getY(i++));
-    printCharAt(minutes[0], getX(), getY(i++));
-    printCharAt(minutes[1], getX(), getY(i++));
-    printCharAt(':', getX(), getY(i++));
-    printCharAt(seconds[0], getX(), getY(i++));
-    printCharAt(seconds[1], getX(), getY(i++));
-    printCharAt(':', getX(), getY(i++));
-    printCharAt(decimals[0], getX(), getY(i++));
-    printCharAt(decimals[1], getX(), getY(i++));
+    printCharAt(hours[0], getX(i++), getY());
+    printCharAt(hours[1], getX(i++), getY());
+    printCharAt(':', getX(i++), getY());
+    printCharAt(minutes[0], getX(i++), getY());
+    printCharAt(minutes[1], getX(i++), getY());
+    printCharAt(':', getX(i++), getY());
+    printCharAt(seconds[0], getX(i++), getY());
+    printCharAt(seconds[1], getX(i++), getY());
+    printCharAt(':', getX(i++), getY());
+    printCharAt(decimals[0], getX(i++), getY());
+    printCharAt(decimals[1], getX(i++), getY());
 }
 
-uint8_t hours_elapsed()
+uint64_t hours_elapsed()
 {
     return minutes_elapsed() / 60;
 }
 
-uint8_t minutes_elapsed()
+uint64_t minutes_elapsed()
 {
     return (seconds_elapsed() / 60) % 60;
 }
 
-uint8_t seconds_elapsed()
+uint64_t seconds_elapsed()
 {
     return (ticks_elapsed() / TICK_FREQ) % 60;
 }
 
-uint8_t decimals_elapsed()
+uint64_t decimals_elapsed()
 {
     return (ticks_elapsed() / 2) % 10;
 }
@@ -86,9 +99,9 @@ uint64_t ticks_elapsed()
 
 void resume()
 {
-    active = 1;
     if (paused)
     {
+        active = 1;
     }
 }
 
@@ -98,17 +111,16 @@ void pause()
     paused = 1;
 }
 
-void stop()
-{
+void stop(){
     start = 0;
 }
 
-uint8_t getX()
+uint8_t getX(uint8_t i)
 {
-    return CHRONO_OFFSET_X + CHRONO_SCREEN_START_X;
+    return CHRONO_OFFSET_X + CHRONO_SCREEN_START_X + i;
 }
 
-uint8_t getY(uint8_t i)
+uint8_t getY()
 {
-    return CHRONO_SCREEN_START_Y + CHRONO_OFFSET_Y + i;
+    return CHRONO_SCREEN_START_Y + CHRONO_OFFSET_Y ;
 }

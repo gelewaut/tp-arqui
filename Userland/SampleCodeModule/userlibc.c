@@ -260,6 +260,15 @@ void putChar(char c)
 	sys_write(STDOUT, &c, 1);
 }
 
+char getCharContinues()
+{
+    char buff[2] = {0};
+    int ret = sys_read(0, buff, 2);
+    if (ret <= 0)
+        return -1;
+    return buff[0];
+}
+
 void printCharAt(char c, int x, int y)
 {
 	sys_writeAt(&c, 1, x, y);

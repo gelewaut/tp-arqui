@@ -38,12 +38,12 @@ void print_chrono();
 uint8_t isChrono(uint8_t key);
 void processChrono(uint8_t key);
 void updateChrono();
-uint8_t hours_elapsed();
-uint8_t minutes_elapsed();
-uint8_t seconds_elapsed();
-uint8_t decimals_elapsed();
+uint64_t hours_elapsed();
+uint64_t minutes_elapsed();
+uint64_t seconds_elapsed();
+uint64_t decimals_elapsed();
 uint64_t ticks_elapsed();
-uint8_t getX();
-uint8_t getY(uint8_t i);
+uint8_t getX(uint8_t i);
+uint8_t getY();
 
 #endif

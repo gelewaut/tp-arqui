@@ -4,12 +4,14 @@
 #include <stdint.h>
 
 uint64_t numToStr(char *buf, unsigned long int num, int base);
+uint32_t uintToStr(uint64_t value, char * buffer);
 int strToNum(char *str);
 int string_compare(const char *s1, const char *s2);
 void printf(char *string, ...);
 int scanf(char *string, ...);
 char getChar();
 void putChar(char c);
+char getCharContinues();
 void printCharAt(char c, int x, int y);
 void printDec(uint64_t num);
 void printHex(uint64_t num);
