@@ -81,6 +81,7 @@ uint8_t processSudoku(uint8_t key)
         }
     }
     won = check_win();
+
     print_sudoku();
     //cambiar
     return 1;
@@ -148,14 +149,6 @@ uint8_t check_square(uint8_t num, uint8_t row, uint8_t col)
     return 1;
 }
 
-// void clear_buffer()
-// {
-//     for (int i = 0; i < info_idx; i++)
-//     {
-//         info_buffer[i] = 0;
-//     }
-// }
-
 void print_sudoku()
 {
     print_grill();
@@ -174,27 +167,6 @@ void print_sudoku()
 
 void print_grill()
 {
-    // int offset_x, offset_y;
-    // uint8_t token;
-    // uint8_t num;
-    // offset_x = 10;
-    // offset_y = 0;
-    // for (int i = 0; i < MAX_ROWS; i++)
-    // {
-    //     for (int j = 0; j < MAX_COLS; j++)
-    //     {
-    //         num = grill[i][j];
-    //         if (num >= 1 && num <= 9)
-    //         {
-    //             token = num + '0';
-    //         }
-    //         else
-    //         {
-    //             token = BLANK_TOKEN;
-    //         }
-    //         printCharAt(token, SUDOKU_SCREEN_START_X + offset_x + i, SUDOKU_SCREEN_START_Y + offset_y + j);
-    //     }
-    // }
 
     uint8_t num;
     uint8_t token;
@@ -218,6 +190,10 @@ void print_grill()
         printCharAt(' ', b, SUDOKU_SCREEN_START_Y + 11);
     }
     printCharAt('^', SUDOKU_SCREEN_START_X + (values_idx + 1) * 2, SUDOKU_SCREEN_START_Y + 11);
+
+    printCharAt('R', SUDOKU_SCREEN_START_X + 2, SUDOKU_SCREEN_START_Y + 12);
+    printCharAt('C', SUDOKU_SCREEN_START_X + 4, SUDOKU_SCREEN_START_Y + 12);
+    printCharAt('N', SUDOKU_SCREEN_START_X + 6, SUDOKU_SCREEN_START_Y + 12);
 }
 
 uint8_t isNumber(uint8_t key)
