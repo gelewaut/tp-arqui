@@ -1,5 +1,25 @@
 GLOBAL fill_registers
 GLOBAL print_ip
+
+GLOBAL return_rax
+GLOBAL return_rbx
+GLOBAL return_rcx
+GLOBAL return_rdx
+GLOBAL return_rbp
+GLOBAL return_rsp
+GLOBAL return_rdi
+GLOBAL return_rsi
+GLOBAL return_r8
+GLOBAL return_r9
+GLOBAL return_r10
+GLOBAL return_r11
+GLOBAL return_r12
+GLOBAL return_r13
+GLOBAL return_r14
+GLOBAL return_r15
+
+
+
 EXTERN ncPrintHex
 EXTERN ncPrintChar
 
@@ -19,6 +39,69 @@ EXTERN ncPrintChar
 	; push r14
 	; push r15
 
+
+return_rax:
+    ret
+
+return_rbx:
+    mov rax, rbx
+    ret
+
+return_rcx:
+    mov rax, rcx
+    ret
+
+return_rdx:
+    mov rax, rdx
+    ret
+
+return_rbp:
+    mov rax, rbp
+    ret
+
+return_rsp:
+    mov rax, $
+    ret
+
+return_rdi:
+    mov rax, rdi
+    ret
+
+return_rsi:
+    mov rax, rsi
+    ret
+
+return_r8:
+    mov rax, r8
+    ret
+
+    return_r9:
+    mov rax, r9
+    ret
+
+    return_r10:
+    mov rax, r10
+    ret
+
+    return_r11:
+    mov rax, r11
+    ret
+
+    return_r12:
+    mov rax, r12
+    ret
+
+    return_r13:
+    mov rax, r13
+    ret
+
+    return_r14:
+    mov rax, r14
+    ret
+
+    return_r15:
+    mov rax, r15
+    ret
 fill_registers:
     push rdi
     mov rdi, rax
@@ -42,6 +125,11 @@ fill_registers:
     call ncPrintChar
     
     mov rdi, rbp
+    call ncPrintHex
+    mov rdi, 32
+    call ncPrintChar
+
+    mov rdi, rsp
     call ncPrintHex
     mov rdi, 32
     call ncPrintChar

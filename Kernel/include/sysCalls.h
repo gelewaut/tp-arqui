@@ -9,7 +9,23 @@ uint64_t sys_read(int fd, char *buf, uint64_t count);
 uint64_t sys_write(int fd, const char *buf, uint64_t count);
 uint64_t sys_writeAT(char *character, uint64_t bytes, int x, int y);
 uint64_t getTime (uint64_t code);
-
+uint64_t return_rax();
+uint64_t return_rbx();
+uint64_t return_rcx();
+uint64_t return_rdx();
+uint64_t return_rbp();
+uint64_t return_rsp();
+uint64_t return_rdi();
+uint64_t return_rsi();
+uint64_t return_r8();
+uint64_t return_r9();
+uint64_t return_r10();
+uint64_t return_r11();
+uint64_t return_r12();
+uint64_t return_r13();
+uint64_t return_r14();
+uint64_t return_r15();
+void saveReg();
 void infoReg();
 void memDump(uint64_t * direction);
 

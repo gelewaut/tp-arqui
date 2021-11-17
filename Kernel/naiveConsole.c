@@ -1,4 +1,5 @@
 #include <naiveConsole.h>
+#include <exceptions.h>
 
 #define WHITE_ON_BLACK 0x0F
 
@@ -161,6 +162,14 @@ uint64_t PrintAt(char * character, uint64_t bytes, int x, int y) {
 	// }
 	int position;
 	int i;
+
+	if (x > width || y > height ||x <0 || y < 0)
+	{
+		invalid_OPCODE();
+		return;
+	}
+	
+
 	for (i=0; i<bytes && y<=height; i++) {
 		if (x>=width) {
 			x=0;

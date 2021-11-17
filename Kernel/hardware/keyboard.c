@@ -75,13 +75,18 @@ int bufferIdx = 0;
 void clearBuffer();
 
 void keyboard_handler()
-{
+{   
     fillBuffer();
 }
 
 void fillBuffer()
 {
     int pressedKey = getKey();
+    if (pressedKey == 53)
+    {
+        saveReg();
+    }
+    
     //|| pressedKey==SHIFTL_REL || pressedKey==SHIFTR_REL
     if (pressedKey == CAPSLOCK || pressedKey == SHIFTL || pressedKey == SHIFTR)
     {
