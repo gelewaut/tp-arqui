@@ -75,33 +75,34 @@ return_r8:
     mov rax, r8
     ret
 
-    return_r9:
+return_r9:
     mov rax, r9
     ret
 
-    return_r10:
+return_r10:
     mov rax, r10
     ret
 
-    return_r11:
+return_r11:
     mov rax, r11
     ret
 
-    return_r12:
+return_r12:
     mov rax, r12
     ret
 
-    return_r13:
+return_r13:
     mov rax, r13
     ret
 
-    return_r14:
+return_r14:
     mov rax, r14
     ret
 
-    return_r15:
+return_r15:
     mov rax, r15
     ret
+
 fill_registers:
     push rdi
     mov rdi, rax

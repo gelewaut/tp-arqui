@@ -82,9 +82,9 @@ void keyboard_handler()
 void fillBuffer()
 {
     int pressedKey = getKey();
-    if (pressedKey == 53)
+    if (pressedKey == 56)
     {
-        saveReg();
+        _saveReg();
     }
     
     //|| pressedKey==SHIFTL_REL || pressedKey==SHIFTR_REL
