@@ -331,6 +331,10 @@ void printDecAT(uint64_t value, int x, int y) {
 	int length = uintToBase(value, buffer, 10);
 	sys_writeAt (buffer, length, x, y);
 }
+void printHexAT(uint64_t value, int x, int y) {
+	int length = uintToBase(value, buffer, 16);
+	sys_writeAt (buffer, length, x, y);
+}
 
 void printHex(uint64_t value)
 {

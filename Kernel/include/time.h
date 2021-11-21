@@ -8,4 +8,6 @@ int ticks_elapsed();
 int seconds_elapsed();
 void halt(uint32_t seconds);
 
+// uint64_t getRTC(uint64_t code);
+
 #endif

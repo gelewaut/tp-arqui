@@ -215,18 +215,18 @@ uint8_t helpCommand()
 
 uint8_t timeCommand()
 {
-    uint8_t hours, minutes, seconds;
-
-    hours = getHours();
-    minutes = getMinutes();
-    seconds = getSeconds();
-
-    printf("\nTIME: ");
-    printDec(hours);
-    putChar(':');
-    printDec(minutes);
-    putChar(':');
-    printDec(seconds);
+    putChar('\n');
+	printHex(sys_clock(4));
+	putChar(':');
+	printHex(sys_clock(2));
+	putChar(':');
+	printHex(sys_clock(0));
+	putChar(' ');
+	printHex(sys_clock(9));
+	putChar('/');
+	printHex(sys_clock(8));
+	putChar('/');
+	printHex(sys_clock(7));
 
     return EXIT_SUCCESS;
 }

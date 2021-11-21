@@ -50,13 +50,11 @@ getRTC:
 	push rbp
 	mov rbp, rsp
 
-	push rbx
-
-	mov al, cl
+	mov rax, 0
+	mov rax, rdi
 	out 70h, al
-	in ax, 71h
-
-	pop rbx
+	mov rax, 0
+	in al, 71h
 
 	mov rsp, rbp
 	pop rbp
