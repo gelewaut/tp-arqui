@@ -3,14 +3,14 @@
 #include <stdint.h>
 #include <syscalls.h>
 #include <fortune.h>
-#include <shell.h>
+#include <tests.h>
 
 #define PROMPT "$>"
 #define MAX_BUFFER 128
-#define MAX_COMMAND_LENGHT 8
-#define MAX_ARGS 0
-#define MAX_ARG_LENGHT 0
-#define NUMBER_OF_COMMANDS 6
+#define MAX_COMMAND_LENGHT 9
+#define MAX_ARGS 1
+#define MAX_ARG_LENGHT 16
+#define NUMBER_OF_COMMANDS 8
 
 #define BACKSPACE 127
 #define ENTER '\n'
@@ -21,7 +21,7 @@
 static char shell_buffer[MAX_BUFFER + 1] = {0};
 static int bufferIdx = 0;
 static char command_buffer[MAX_COMMAND_LENGHT + 1] = {0};
-static char args[MAX_ARGS][MAX_ARG_LENGHT + 1];
+static char args[MAX_ARG_LENGHT + 1] = {0};
 
 static char *valid_commands[NUMBER_OF_COMMANDS] = {
     "exit",
@@ -30,6 +30,8 @@ static char *valid_commands[NUMBER_OF_COMMANDS] = {
     "time",     // 2
     "inforeg",  // 3
     "printmem", // 4
+    "divzero",      // 5
+    "opcode" // 6
 };
 
 // static uint8_t args_for_command[NUMBER_OF_COMMANDS] = {
@@ -53,7 +55,7 @@ void init_shell()
 
 void shell_welcome()
 {
-    printf("WELCOME TO SHELL");
+    printf("WELCOME TO THE SHELL");
 }
 
 void shell_loop()
@@ -103,7 +105,7 @@ void shell_parse_line()
 
     uint8_t token;
 
-    while (shell_buffer[buffer_idx] && args_counter <= MAX_ARGS)
+    while (shell_buffer[buffer_idx] )
     {
         token = shell_buffer[buffer_idx++];
         if (token == ' ')
@@ -118,7 +120,7 @@ void shell_parse_line()
         }
         else
         {
-            args[args_counter - 1][aux_idx++] = token;
+            args[aux_idx++] = token;
         }
     }
 }
@@ -142,7 +144,7 @@ uint8_t shell_execute()
     return result;
 }
 
-int8_t isCommand()
+uint8_t isCommand()
 {
     for (int i = 0; i < NUMBER_OF_COMMANDS; i++)
     {
@@ -154,7 +156,7 @@ int8_t isCommand()
     return -1;
 }
 
-int8_t runCommand(int8_t cmd)
+uint8_t runCommand(int8_t cmd)
 {
     switch (cmd)
     {
@@ -181,8 +183,18 @@ int8_t runCommand(int8_t cmd)
         break;
     }
     case 5:
+    {   
+        return printmemCommand(args);
+        break;
+    }
+    case 6:
     {
-        return printmemCommand();
+        return divByZeroCommand();
+        break;
+    }
+    case 7:
+    {
+        return opCodeCommand();
         break;
     }
     }
@@ -233,9 +245,27 @@ uint8_t inforegCommand()
     return EXIT_SUCCESS;
 }
 
-uint8_t printmemCommand()
+uint8_t printmemCommand(char arg[])
 {
-    sys_printMem(0x000000);
+    int auxArg = strToNum(arg);
+    if (auxArg == -1)
+    {
+        print("\n A printmem SE LE DEBE PASAR UN NUMERO COMO PARAMETRO\n");
+        return EXIT_FAILURE;
+    }
+    sys_printMem(auxArg);
+    return EXIT_SUCCESS;
+}
+
+uint8_t divByZeroCommand()
+{
+    divByZero();
+    return EXIT_SUCCESS; 
+}
+
+uint8_t opCodeCommand()
+{
+    opCodeTest();
     return EXIT_SUCCESS;
 }
 
@@ -261,11 +291,8 @@ void clear_command_buffer()
 
 void clear_args()
 {
-    for (int i = 0; i < MAX_ARGS; i++)
-    {
         for (int j = 0; j < MAX_ARG_LENGHT; j++)
         {
-            args[i][j] = 0;
+            args[j] = 0;
         }
-    }
 }

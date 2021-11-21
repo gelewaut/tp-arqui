@@ -18,7 +18,7 @@ void printHex(uint64_t num);
 void printBase(uint64_t value, uint32_t base);
 void print(const char *str);
 void printChar(char c);
-static uint32_t uintToBase(uint64_t value, char *buffer, uint32_t base);
+uint32_t uintToBase(uint64_t value, char *buffer, uint32_t base);
 void cleanBuffer();
 uint8_t getHours();
 uint8_t getMinutes();

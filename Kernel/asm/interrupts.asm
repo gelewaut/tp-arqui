@@ -33,6 +33,7 @@ EXTERN ticks_elapsed
 EXTERN infoReg
 EXTERN memDump
 EXTERN ncClear
+EXTERN initializeKernelBinary
 
 SECTION .text
 
@@ -127,6 +128,9 @@ SECTION .text
 	call exceptionDispatcher
 
 	popState
+	;push 0x400000
+	call initializeKernelBinary    ; Set up the kernel binary, and get thet stack address
+    mov rsp, rax
 	iretq
 %endmacro
 

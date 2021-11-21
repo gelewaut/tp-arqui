@@ -17,17 +17,25 @@ void exceptionDispatcher(int exception) {
 }
 
 void zero_division() {
+	ncPrintChar('\n');
 	ncPrintFormat("Division By Zero ",RED,BLACK);
 	ncPrint("Instruction Pointer: ");
 	print_ip();
 	ncPrintChar('\n');
 	infoReg();
+	char c ;
+	sys_read(0, &c, 1);
+	ncClear();
 }
 
 void invalid_OPCODE() {
+	ncPrintChar('\n');
 	ncPrintFormat("Invalid OPCODE ",RED,BLACK);
 	ncPrint("Instruction Pointer: ");
 	print_ip();
 	ncPrintChar('\n');
 	infoReg();
+	char c ;
+	sys_read(0, &c, 1);
+	ncClear();
 }
