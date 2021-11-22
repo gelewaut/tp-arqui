@@ -17,7 +17,7 @@ void saveRsp(uint64_t _rsp)
 
 void saveReg(int i, uint64_t reg)
 {
-    registers_values[i] = reg;
+    registers_values[14 - i] = reg;
 }
 
 void printRegs()

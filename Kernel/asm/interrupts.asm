@@ -30,10 +30,17 @@ EXTERN exceptionDispatcher
 EXTERN sysCallDispatcher
 EXTERN sys_writeAT
 EXTERN ticks_elapsed
-EXTERN infoReg
 EXTERN memDump
 EXTERN ncClear
 EXTERN initializeKernelBinary
+
+; INFOREG
+EXTERN saveIp
+EXTERN saveRsp
+EXTERN saveReg
+EXTERN printRegs
+
+; INFOREG
 
 SECTION .text
 
@@ -124,7 +131,7 @@ SECTION .text
 %macro exceptionHandler 1
 	pushState
 
-    mov rdi, [rsp+120]
+	mov rdi, [rsp+120]
     call saveIp
 
     lea rdi, [rsp+120]
@@ -133,7 +140,21 @@ SECTION .text
     mov rbx, 0
     mov rcx, rsp
     add rcx, 8
-    nextReg:
+	call nextReg
+
+	mov rdi, %1 ; pasaje de parametro
+	call exceptionDispatcher
+
+	popState
+	;push 0x400000
+	; call initializeKernelBinary    ; Set up the kernel binary, and get thet stack address
+    ; mov rsp, rax
+
+	iretq
+%endmacro
+
+nextReg:
+
     push rcx
     mov rdi, rbx
     ; call printRegName
@@ -147,15 +168,7 @@ SECTION .text
     cmp rbx, 15
     jne nextReg
 
-	mov rdi, %1 ; pasaje de parametro
-	call exceptionDispatcher
-
-	popState
-	;push 0x400000
-	; call initializeKernelBinary    ; Set up the kernel binary, and get thet stack address
-    ; mov rsp, rax
-	iretq
-%endmacro
+	ret
 
 %macro sysCallHandlerMaster 1
 	pushStateSysCall
@@ -266,7 +279,7 @@ _timerTickHandler:
 	iretq
 _infoRegHandler:
 	pushStateSysCall
-	call infoReg
+	call printRegs
 	popStateSysCall
 	iretq
 _printMemHandler:

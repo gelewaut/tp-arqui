@@ -14,7 +14,7 @@ void exceptionDispatcher(int exception)
 		zero_division();
 	else if (exception == OPCODE_EXCEPTION_ID)
 		invalid_OPCODE();
-	printRegs();
+	// printRegs();
 }
 
 void zero_division()

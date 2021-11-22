@@ -27,11 +27,11 @@
 //TECLADO GONZA
 static const char lowerkeys[] = {
     0, '\e', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '\'', /*'¿'*/ 0, 127, //14
-    '\t', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', /*'ñ'*/ 0, '+', '\n', //28
-    0, 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 0, '{', 0, 0, '}',            //43
-    'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '-', 0,                          //54
-    0, 0, ' ',                                                                    //57
-    0, 0, 0, 0, 0, 0, 0                                                           //64 lleno para poder usar BUFFER_SIZE en fill buffer
+    '\t', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', /*'ñ'*/ 0, '+', '\n',    //28
+    0, 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 0, '{', 0, 0, '}',               //43
+    'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '-', 0,                             //54
+    0, 0, ' ',                                                                       //57
+    0, 0, 0, 0, 0, 0, 0                                                              //64 lleno para poder usar BUFFER_SIZE en fill buffer
 };
 
 static const char upperKeys[] = {
@@ -75,7 +75,7 @@ int bufferIdx = 0;
 void clearBuffer();
 
 void keyboard_handler()
-{   
+{
     fillBuffer();
 }
 
@@ -84,9 +84,9 @@ void fillBuffer()
     int pressedKey = getKey();
     if (pressedKey == 56)
     {
-        _saveReg();
+        // _saveReg();
     }
-    
+
     //|| pressedKey==SHIFTL_REL || pressedKey==SHIFTR_REL
     if (pressedKey == CAPSLOCK || pressedKey == SHIFTL || pressedKey == SHIFTR)
     {
