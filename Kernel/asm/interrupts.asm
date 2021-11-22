@@ -40,6 +40,7 @@ EXTERN saveIp
 EXTERN saveRsp
 EXTERN saveReg
 EXTERN printRegs
+EXTERN halt10
 
 ; INFOREG
 
@@ -149,10 +150,13 @@ SECTION .text
 	call exceptionDispatcher
 
 	popState
-	;push 0x400000
-	; call initializeKernelBinary    ; Set up the kernel binary, and get thet stack address
-    ; mov rsp, rax
-
+	sti
+    mov rdi, 0xFC
+    call picMasterMask
+	call halt10
+    pop rax
+    call ncClear
+    push 0x400000
 	iretq
 %endmacro
 

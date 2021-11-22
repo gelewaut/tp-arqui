@@ -86,7 +86,7 @@ void keyboard_handler()
 void fillBuffer()
 {
     int pressedKey = getKey();
-    if (pressedKey == 16)
+    if (pressedKey == 53)
     {
         saveRegs();
     }

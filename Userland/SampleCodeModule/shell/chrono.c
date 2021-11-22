@@ -84,12 +84,12 @@ void print_chrono()
 
 uint64_t hours_elapsed()
 {
-    return (minutes_elapsed() / 60);
+    return ((ticks_elapsed()/TICK_FREQ) / 3600);
 }
 
 uint64_t minutes_elapsed()
 {
-    return ((seconds_elapsed() / 60) % 60);
+    return ((ticks_elapsed()/TICK_FREQ) / 60);
 }
 
 uint64_t seconds_elapsed()

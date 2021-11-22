@@ -38,7 +38,7 @@ void print_clock()
     sys_writeAt(clockPrompt,string_lenght(clockPrompt), getClockX(i), getClockY());
     i=string_lenght(clockPrompt);
     sys_writeAt("          ",10,getClockX(i),getClockY());
-    printHexAT(sys_clock(4), getClockX(i) ,getClockY());
+    printHexAT(sys_clock(4)-0x03, getClockX(i) ,getClockY());
     printCharAt(':', getClockX(i+2), getClockY());
     printHexAT(sys_clock(2), getClockX(i+3) ,getClockY());
     printCharAt(':', getClockX(i+5), getClockY());

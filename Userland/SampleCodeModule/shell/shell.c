@@ -45,6 +45,7 @@ void init_shell()
 {
     // setup
     clear();
+    cleanup();
     shell_welcome();
 
     //loop

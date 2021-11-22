@@ -1,9 +1,10 @@
 #include <naiveConsole.h>
 #include <sysCalls.h>
 #include <inforeg.h>
+#include <time.h>
 
 #define ZERO_EXCEPTION_ID 0
-#define OPCODE_EXCEPTION_ID 0
+#define OPCODE_EXCEPTION_ID 6
 
 void zero_division();
 void invalid_OPCODE();
@@ -14,7 +15,7 @@ void exceptionDispatcher(int exception)
 		zero_division();
 	else if (exception == OPCODE_EXCEPTION_ID)
 		invalid_OPCODE();
-	// printRegs();
+	printRegs();
 }
 
 void zero_division()
