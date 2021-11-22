@@ -37,11 +37,12 @@ void print_clock()
 
     sys_writeAt(clockPrompt,string_lenght(clockPrompt), getClockX(i), getClockY());
     i=string_lenght(clockPrompt);
-    printDecAT(getHours(), getClockX(i) ,getClockY());
+    sys_writeAt("          ",10,getClockX(i),getClockY());
+    printHexAT(sys_clock(4), getClockX(i) ,getClockY());
     printCharAt(':', getClockX(i+2), getClockY());
-    printDecAT(getMinutes(), getClockX(i+3) ,getClockY());
+    printHexAT(sys_clock(2), getClockX(i+3) ,getClockY());
     printCharAt(':', getClockX(i+5), getClockY());
-    printDecAT(getSeconds(), getClockX(i+6) ,getClockY());
+    printHexAT(sys_clock(0), getClockX(i+6) ,getClockY());
 
     // printCharAt(hours[0],getClockX(i++), getClockY());
     // printCharAt(hours[1], getClockX(i++), getClockY());

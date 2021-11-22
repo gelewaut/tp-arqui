@@ -59,6 +59,7 @@ void print_chrono()
 
 
     uint8_t i = 0;
+    sys_writeAt("               ",15,getX(i),getY());
     printDecAT(hours_elapsed(), getX(i) ,getY());
     printCharAt(':', getX(i+2), getY());
     printDecAT(minutes_elapsed(), getX(i+3) ,getY());
