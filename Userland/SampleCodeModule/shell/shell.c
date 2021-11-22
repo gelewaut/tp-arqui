@@ -216,17 +216,17 @@ uint8_t helpCommand()
 uint8_t timeCommand()
 {
     putChar('\n');
-	printHex(sys_clock(4));
+	printHex(sys_clock(4) - 3);
 	putChar(':');
 	printHex(sys_clock(2));
 	putChar(':');
 	printHex(sys_clock(0));
 	putChar(' ');
-	printHex(sys_clock(9));
+	printHex(sys_clock(7));
 	putChar('/');
 	printHex(sys_clock(8));
 	putChar('/');
-	printHex(sys_clock(7));
+	printHex(sys_clock(9));
 
     return EXIT_SUCCESS;
 }
