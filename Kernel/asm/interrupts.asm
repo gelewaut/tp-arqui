@@ -124,13 +124,36 @@ SECTION .text
 %macro exceptionHandler 1
 	pushState
 
+    mov rdi, [rsp+120]
+    call saveIp
+
+    lea rdi, [rsp+120]
+    call saveRsp
+
+    mov rbx, 0
+    mov rcx, rsp
+    add rcx, 8
+    nextReg:
+    push rcx
+    mov rdi, rbx
+    ; call printRegName
+    ; pop rcx
+    ; push rcx
+    mov rsi, [rcx]
+    call saveReg
+    pop rcx
+    add rcx, 8
+    inc rbx
+    cmp rbx, 15
+    jne nextReg
+
 	mov rdi, %1 ; pasaje de parametro
 	call exceptionDispatcher
 
 	popState
 	;push 0x400000
-	call initializeKernelBinary    ; Set up the kernel binary, and get thet stack address
-    mov rsp, rax
+	; call initializeKernelBinary    ; Set up the kernel binary, and get thet stack address
+    ; mov rsp, rax
 	iretq
 %endmacro
 
@@ -151,8 +174,6 @@ SECTION .text
 	popStateSysCall
 	iretq
 %endmacro
-
-
 _hlt:
 	sti
 	hlt
