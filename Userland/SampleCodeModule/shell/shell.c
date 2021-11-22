@@ -30,8 +30,8 @@ static char *valid_commands[NUMBER_OF_COMMANDS] = {
     "time",     // 2
     "inforeg",  // 3
     "printmem", // 4
-    "divzero",      // 5
-    "opcode" // 6
+    "divzero",  // 5
+    "opcode"    // 6
 };
 
 // static uint8_t args_for_command[NUMBER_OF_COMMANDS] = {
@@ -105,7 +105,7 @@ void shell_parse_line()
 
     uint8_t token;
 
-    while (shell_buffer[buffer_idx] )
+    while (shell_buffer[buffer_idx])
     {
         token = shell_buffer[buffer_idx++];
         if (token == ' ')
@@ -183,7 +183,7 @@ uint8_t runCommand(int8_t cmd)
         break;
     }
     case 5:
-    {   
+    {
         return printmemCommand(args);
         break;
     }
@@ -216,17 +216,17 @@ uint8_t helpCommand()
 uint8_t timeCommand()
 {
     putChar('\n');
-	printHex(sys_clock(4) - 3);
-	putChar(':');
-	printHex(sys_clock(2));
-	putChar(':');
-	printHex(sys_clock(0));
-	putChar(' ');
-	printHex(sys_clock(7));
-	putChar('/');
-	printHex(sys_clock(8));
-	putChar('/');
-	printHex(sys_clock(9));
+    printHex(sys_clock(4) - 3);
+    putChar(':');
+    printHex(sys_clock(2));
+    putChar(':');
+    printHex(sys_clock(0));
+    putChar(' ');
+    printHex(sys_clock(7));
+    putChar('/');
+    printHex(sys_clock(8));
+    putChar('/');
+    printHex(sys_clock(9));
 
     return EXIT_SUCCESS;
 }
@@ -251,7 +251,7 @@ uint8_t printmemCommand(char arg[])
     if (auxArg == -1)
     {
         print("\n A printmem SE LE DEBE PASAR UN NUMERO COMO PARAMETRO\n");
-        return EXIT_FAILURE;
+        return EXIT_SUCCESS;
     }
     sys_printMem(auxArg);
     return EXIT_SUCCESS;
@@ -260,7 +260,7 @@ uint8_t printmemCommand(char arg[])
 uint8_t divByZeroCommand()
 {
     divByZero();
-    return EXIT_SUCCESS; 
+    return EXIT_SUCCESS;
 }
 
 uint8_t opCodeCommand()
@@ -291,8 +291,8 @@ void clear_command_buffer()
 
 void clear_args()
 {
-        for (int j = 0; j < MAX_ARG_LENGHT; j++)
-        {
-            args[j] = 0;
-        }
+    for (int j = 0; j < MAX_ARG_LENGHT; j++)
+    {
+        args[j] = 0;
+    }
 }

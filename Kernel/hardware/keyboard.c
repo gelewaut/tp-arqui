@@ -1,6 +1,10 @@
 #include <keyboard.h>
 #include <lib.h>
 #include <naiveConsole.h>
+#include <inforeg.h>
+
+#include <interrupts.h>
+
 #define BUFFER_SIZE 64
 
 //gonza
@@ -82,13 +86,12 @@ void keyboard_handler()
 void fillBuffer()
 {
     int pressedKey = getKey();
-    if (pressedKey == 56)
+    if (pressedKey == 16)
     {
-        // _saveReg();
+        saveRegs();
     }
-
     //|| pressedKey==SHIFTL_REL || pressedKey==SHIFTR_REL
-    if (pressedKey == CAPSLOCK || pressedKey == SHIFTL || pressedKey == SHIFTR)
+    else if (pressedKey == CAPSLOCK || pressedKey == SHIFTL || pressedKey == SHIFTR)
     {
         capsLock = (capsLock + 1) % 2; //si era 0 pasa a ser 1, si era 1 pasa a 0
     }

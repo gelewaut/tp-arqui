@@ -35,6 +35,7 @@ EXTERN ncClear
 EXTERN initializeKernelBinary
 
 ; INFOREG
+GLOBAL saveRegs
 EXTERN saveIp
 EXTERN saveRsp
 EXTERN saveReg
@@ -131,16 +132,18 @@ SECTION .text
 %macro exceptionHandler 1
 	pushState
 
-	mov rdi, [rsp+120]
-    call saveIp
+	; mov rdi, [rsp+120]
+    ; call saveIp
 
-    lea rdi, [rsp+120]
-    call saveRsp
+    ; lea rdi, [rsp+120]
+    ; call saveRsp
 
-    mov rbx, 0
-    mov rcx, rsp
-    add rcx, 8
-	call nextReg
+    ; mov rbx, 0
+    ; mov rcx, rsp
+    ; add rcx, 8
+	; call nextReg
+
+	call saveRegs
 
 	mov rdi, %1 ; pasaje de parametro
 	call exceptionDispatcher
@@ -153,8 +156,27 @@ SECTION .text
 	iretq
 %endmacro
 
-nextReg:
+saveRegs:
+	; push rbp
+	; mov rbp, rsp
 
+	mov rdi, [rsp+120]
+    call saveIp
+
+    lea rdi, [rsp+120]
+    call saveRsp
+
+    mov rbx, 0
+    mov rcx, rsp
+    add rcx, 8
+	call nextReg
+
+	; mov rsp, rbp
+	; pop rbp
+
+	ret
+
+nextReg:
     push rcx
     mov rdi, rbx
     ; call printRegName

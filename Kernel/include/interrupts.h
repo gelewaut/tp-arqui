@@ -37,4 +37,7 @@ void _infoRegHandler(void);
 void _printMemHandler(void);
 void _clearScreenHandler(void);
 
+void saveRegs();
+void nextReg();
+
 #endif /* INTERRUPS_H_ */
