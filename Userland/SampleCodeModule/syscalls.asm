@@ -6,6 +6,7 @@ GLOBAL sys_timerTick
 GLOBAL sys_infoReg
 GLOBAL sys_printMem
 GLOBAL sys_clearScreen
+GLOBAL sys_readNoStop
 
 section .text
     
@@ -43,6 +44,14 @@ sys_read:
     INT 80h
     popAsm
     ret
+
+sys_readNoStop:
+pushAsm
+mov rax,3
+INT 80H
+popAsm
+ret
+
 sys_write:
     pushAsm
     mov rax, 1

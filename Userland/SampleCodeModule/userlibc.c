@@ -3,21 +3,15 @@
 #include <stdint.h>
 #include <syscalls.h>
 #include <stdlib.h>
-
 #define BUFFER_SIZE 32
-
 #define STDIN 0
 #define STDOUT 0
 #define STDERR 2
-
 #define CLOCK_HOURS 7
 #define CLOCK_MINUTES 4
 #define CLOCK_SECONDS 2
-
 static char buffer[BUFFER_SIZE] = {0};
-
 static char hexArray[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-
 uint64_t numToStr(char *buf, unsigned long int num, int base)
 {
 	cleanBuffer();
@@ -35,11 +29,9 @@ uint64_t numToStr(char *buf, unsigned long int num, int base)
 	buf = &buffer[i + 1];
 	return BUFFER_SIZE - (i + 2);
 }
-
 int strToNum(char *str)
 {
 	int num = 0;
-
 	for (int i = 0; str[i]; i++)
 	{
 		num *= 10;
@@ -49,7 +41,6 @@ int strToNum(char *str)
 	}
 	return num;
 }
-
 int string_compare(const char *s1, const char *s2)
 {
 	int i;
@@ -60,7 +51,6 @@ int string_compare(const char *s1, const char *s2)
 	}
 	return s1[i] - s2[i];
 }
-
 #define ISSPACE(c) c == ' '
 #define ISDIGIT(c) (c >= '0' && c <= '9')
 #define ISUPPER(c) (c >= 'A' && c <= 'Z')
@@ -74,7 +64,6 @@ int string_compare(const char *s1, const char *s2)
 #ifndef LONG_MIN
 #define LONG_MIN ((long)(~LONG_MAX)) /* 0x80000000 */
 #endif
-
 long strtol(const char *nptr, char **endptr, register int base)
 {
 	register const char *s = nptr;
@@ -107,7 +96,6 @@ long strtol(const char *nptr, char **endptr, register int base)
 	}
 	if (base == 0)
 		base = c == '0' ? 8 : 10;
-
 	cutoff = neg ? -(unsigned long)LONG_MIN : LONG_MAX;
 	cutlim = cutoff % (unsigned long)base;
 	cutoff /= (unsigned long)base;
@@ -140,7 +128,6 @@ long strtol(const char *nptr, char **endptr, register int base)
 		*endptr = (char *)(any ? s - 1 : nptr);
 	return (acc);
 }
-
 int scanf(char *str, ...)
 {
 	va_list vl;
@@ -197,7 +184,6 @@ int scanf(char *str, ...)
 	va_end(vl);
 	return ret;
 }
-
 void printf(char *string, ...)
 {
 	char *buf;
@@ -247,19 +233,16 @@ void printf(char *string, ...)
 	}
 	va_end(list);
 }
-
 char getChar()
 {
 	char c;
 	sys_read(STDIN, &c, 1);
 	return c;
 }
-
 void putChar(char c)
 {
 	sys_write(STDOUT, &c, 1);
 }
-
 char getCharContinues()
 {
     char buff[2] = {0};
@@ -268,24 +251,20 @@ char getCharContinues()
         return -1;
     return buff[0];
 }
-
 void printCharAt(char c, int x, int y)
 {
 	sys_writeAt(&c, 1, x, y);
 }
-
 // void printDec(int num)
 // {
 // 	char * buf;
 // 	int i = numToStr(char num, 10)
 // 	printf();
 // }
-
 // void printHex(int num)
 // {
 // 	printf(numToStr(num, 16));
 // }
-
 void cleanBuffer()
 {
 	for (int i = 0; i < BUFFER_SIZE; i++)
@@ -293,27 +272,22 @@ void cleanBuffer()
 		buffer[i] = 0;
 	}
 }
-
 uint8_t getHours()
 {
 	return sys_clock(CLOCK_HOURS);
 }
-
 uint8_t getMinutes()
 {
 	return sys_clock(CLOCK_MINUTES);
 }
-
 uint8_t getSeconds()
 {
 	return sys_clock(CLOCK_SECONDS);
 }
-
 void clear()
 {
 	sys_clearScreen();
 }
-
 uint16_t string_lenght(const char *str)
 {
 	uint16_t i = 0;
@@ -321,14 +295,16 @@ uint16_t string_lenght(const char *str)
 		i++;
 	return i;
 }
-
 void printDec(uint64_t value)
 {
 	printBase(value, 10);
 }
-
 void printDecAT(uint64_t value, int x, int y) {
 	int length = uintToBase(value, buffer, 10);
+	sys_writeAt (buffer, length, x, y);
+}
+void printHexAT(uint64_t value, int x, int y) {
+	int length = uintToBase(value, buffer, 16);
 	sys_writeAt (buffer, length, x, y);
 }
 
@@ -336,18 +312,15 @@ void printHex(uint64_t value)
 {
 	printBase(value, 16);
 }
-
 void printBin(uint64_t value)
 {
 	printBase(value, 2);
 }
-
 void printBase(uint64_t value, uint32_t base)
 {
 	uintToBase(value, buffer, base);
 	print(buffer);
 }
-
 void print(const char *str)
 {
 	for (int i = 0; str[i]; i++)
@@ -355,23 +328,19 @@ void print(const char *str)
 		printChar(str[i]);
 	}
 }
-
 void printChar(char c)
 {
 	sys_write(STDIN, &c, 1);
 }
-
 uint64_t getTicks()
 {
 	return sys_timerTick();
 }
-
 uint32_t uintToBase(uint64_t value, char *buffer, uint32_t base)
 {
 	char *p = buffer;
 	char *p1, *p2;
 	uint32_t digits = 0;
-
 	//Calculate characters for each digit
 	do
 	{
@@ -379,10 +348,8 @@ uint32_t uintToBase(uint64_t value, char *buffer, uint32_t base)
 		*p++ = (remainder < 10) ? remainder + '0' : remainder + 'A' - 10;
 		digits++;
 	} while (value /= base);
-
 	// Terminate string in buffer.
 	*p = 0;
-
 	//Reverse string in buffer.
 	p1 = buffer;
 	p2 = p - 1;
@@ -394,6 +361,15 @@ uint32_t uintToBase(uint64_t value, char *buffer, uint32_t base)
 		p1++;
 		p2--;
 	}
-
 	return digits;
 }
+
+// char getCharContinues()
+// {
+//     char buff[2] = {0};
+//     int ret = sys_read(0, buff, 2);
+//     if (ret <= 0)
+//         return -1;
+//     return buff[0];
+// }
+

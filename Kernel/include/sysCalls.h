@@ -5,10 +5,11 @@
 
 uint64_t sysCallDispatcher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rax);
 
-uint64_t sys_read(int fd, char *buf, uint64_t count);
+uint64_t sys_read(int fd, char * buf, uint64_t count);
 uint64_t sys_write(int fd, const char *buf, uint64_t count);
 uint64_t sys_writeAT(char *character, uint64_t bytes, int x, int y);
 uint64_t getTime (uint64_t code);
+uint64_t sys_readNoStop(uint64_t fd, uint64_t buffer, uint64_t length);
 // uint64_t return_rax();
 // uint64_t return_rbx();
 // uint64_t return_rcx();

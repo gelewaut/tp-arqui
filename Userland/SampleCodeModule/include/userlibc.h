@@ -27,5 +27,6 @@ uint64_t getTicks();
 void clear();
 uint16_t string_lenght(const char *str);
 void printDecAT(uint64_t value, int x, int y);
+void printHexAT(uint64_t value, int x, int y);
 
 #endif
