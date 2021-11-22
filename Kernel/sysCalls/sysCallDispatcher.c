@@ -5,7 +5,7 @@ typedef uint64_t (*SysCall) (uint64_t, uint64_t, uint64_t);
 
 // De la misma manera aca podrian estar info_reg y mem_dump
 
-static SysCall sysCalls[10] = { (SysCall)&sys_read, (SysCall)&sys_write, (SysCall)&getTime};
+static SysCall sysCalls[10] = { (SysCall)&sys_read, (SysCall)&sys_write, (SysCall)&getTime, (SysCall)&sys_readNoStop};
 
 uint64_t sysCallDispatcher(uint64_t rdi, uint64_t rsi, uint64_t rdx, uint64_t rax) {
     SysCall sysCall = sysCalls[rax];

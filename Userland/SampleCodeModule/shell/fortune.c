@@ -22,7 +22,6 @@ uint8_t fortune_init()
     char c;
     while (1)
     {
-        print_sudoku();
         c = getChar();
         if (isHangman(c))
         {

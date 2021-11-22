@@ -9,6 +9,7 @@ uint64_t sys_write(int fd, const char * buf, uint64_t count);
 
 uint64_t sys_writeAt(char * buf, uint64_t count, int x, int y);
 
+uint64_t sys_readNoStop(uint64_t fd, uint64_t buffer, uint64_t length);
 /*
     Reg#	  Description
 

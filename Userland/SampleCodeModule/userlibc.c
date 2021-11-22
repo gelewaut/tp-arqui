@@ -248,12 +248,22 @@ void printf(char *string, ...)
 	va_end(list);
 }
 
+
 char getChar()
 {
 	char c;
 	sys_read(STDIN, &c, 1);
 	return c;
 }
+
+// int getCharNoStop()
+// {
+//     char buff[2] = {0};
+//     int ret = sys_readNoStop(0, buff, 2);
+//     if (ret <= 0)
+//         return -1;
+//     return buff[0];
+// }
 
 void putChar(char c)
 {
