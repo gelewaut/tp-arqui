@@ -219,23 +219,25 @@ uint8_t timeCommand()
     putChar('\n');
 
     uint64_t hours, minutes, seconds;
-    hours = getAdjustedHours;
+    hours = getAdjustedHours();
     minutes = sys_clock(2);
     seconds = sys_clock(0);
 
     // arreglando esto
-    if (hours < 10)
+    if (hours < 10){
         putChar('0');
+    }
     printDec(hours);
     putChar(':');
-    if (minutes < 10)
+    if (minutes < 10){
         putChar('0');
+    }
     printHex(minutes);
     putChar(':');
-    if (seconds < 10)
+    if (seconds < 10){
         putChar('0');
+    }
     printHex(seconds);
-    printHex(sys_clock(0));
     putChar(' ');
     printHex(sys_clock(7));
     putChar('/');
