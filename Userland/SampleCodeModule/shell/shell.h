@@ -12,6 +12,7 @@ uint8_t isCommand();
 uint8_t runCommand(int8_t cmd);
 uint8_t helpCommand();
 uint8_t timeCommand();
+uint64_t getAdjustedHours();
 uint8_t fortuneCommand();
 uint8_t inforegCommand();
 uint8_t printmemCommand();

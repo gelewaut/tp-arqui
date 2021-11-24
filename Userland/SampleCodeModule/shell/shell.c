@@ -217,7 +217,8 @@ uint8_t helpCommand()
 uint8_t timeCommand()
 {
     putChar('\n');
-    printHex(sys_clock(4) - 3);
+    // arreglando esto
+    printDec(getAdjustedHours());
     putChar(':');
     printHex(sys_clock(2));
     putChar(':');
@@ -230,6 +231,17 @@ uint8_t timeCommand()
     printHex(sys_clock(9));
 
     return EXIT_SUCCESS;
+}
+
+uint64_t getAdjustedHours()
+{
+    uint64_t gmt_hours = sys_clock(4);
+
+    if (gmt_hours < 3)
+    {
+        return gmt_hours + 21;
+    }
+    return gmt_hours - 3;
 }
 
 uint8_t fortuneCommand()
